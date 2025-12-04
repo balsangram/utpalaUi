@@ -113,6 +113,14 @@ import {
     // nurse 
     MonitorHeart as MonitorHeartIcon,
     AssignmentTurnedIn as AssignmentTurnedInIcon,
+
+    // receptionist 
+    EventNote as EventNoteIcon,
+    Hotel as HotelIcon,
+    Payments as PaymentsIcon,
+    Campaign as CampaignIcon,
+    Assessment as AssessmentIcon
+
 } from "@mui/icons-material";
 
 export const sidebarMenus = {
@@ -224,7 +232,44 @@ export const sidebarMenus = {
             to: "/nurse/patients",
         },
     ],
-
+    receptionist: [
+        {
+            key: "dashboard",
+            label: "Dashboard",
+            icon: <DashboardIcon />,
+            to: "/receptionist/dashboard",
+        },
+        {
+            key: "appointments",
+            label: "Appointments",
+            icon: <EventNoteIcon />,
+            to: "/receptionist/appointments",
+        },
+        {
+            key: "inpatients",
+            label: "Inpatients",
+            icon: <HotelIcon />,
+            to: "/receptionist/inpatient",
+        },
+        {
+            key: "payments",
+            label: "Payments",
+            icon: <PaymentsIcon />,
+            to: "/receptionist/payments",
+        },
+        {
+            key: "marketing",
+            label: "Marketing",
+            icon: <CampaignIcon />,
+            to: "/receptionist/marketing",
+        },
+        {
+            key: "reports",
+            label: "Reports",
+            icon: <AssessmentIcon />,
+            to: "/receptionist/reports",
+        },
+    ]
 
 
 };

@@ -1,6 +1,16 @@
-import Patient_Monitoring from "../../pages/nurse/monitoring/Monitoring";
-import Discharge_Preparation from "../../pages/nurse/discharge/Discharge";
-import Nurse_Dashboard from "../../pages/nurse/Dashboard";
+import React, { lazy } from "react";
+
+const Nurse_Dashboard = lazy(() =>
+    import("../../pages/nurse/Dashboard")
+);
+
+const Patient_Monitoring = lazy(() =>
+    import("../../pages/nurse/monitoring/Monitoring")
+);
+
+const Discharge_Preparation = lazy(() =>
+    import("../../pages/nurse/discharge/Discharge")
+);
 
 export const nurseRoutes = [
     { path: "/nurse/dashboard", element: <Nurse_Dashboard /> },

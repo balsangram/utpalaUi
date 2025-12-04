@@ -6,7 +6,7 @@ import { authRoutes } from "./subRouter/authRoutes";
 import { adminRoutes } from "./subRouter/adminRoutes";
 import { doctorRoutes } from "./subRouter/doctorRoutes";
 import { nurseRoutes } from "./subRouter/nurseRoutes";
-
+import { receptionRoutes } from "./subRouter/receptionRoutes";
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -31,6 +31,10 @@ function AppRouter() {
           ))}
           {/* NURSE ROUTES → MUST ADD */}
           {nurseRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+          {/* RECEPTION ROUTES → MUST ADD */}
+          {receptionRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
 

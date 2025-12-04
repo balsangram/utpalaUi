@@ -1,25 +1,54 @@
+import React, { lazy } from "react";
 // src/routes/adminRoutes.jsx
-import Dashboard from "../../pages/admin/dashboard";
-import Doctors from "../../pages/admin/Doctors";
-import Nursing from "../../pages/admin/Nursing";
-import Receptionists from "../../pages/admin/Receptionists";
-import Pharmacists from "../../pages/admin/Pharmacists";
-import Therapists from "../../pages/admin/Therapists";
-import Patients from "../../pages/admin/Patients";
+// ================= ADMIN MAIN PAGES =================
+const Dashboard = lazy(() => import("../../pages/admin/dashboard"));
+const Doctors = lazy(() => import("../../pages/admin/Doctors"));
+const Nursing = lazy(() => import("../../pages/admin/Nursing"));
+const Receptionists = lazy(() => import("../../pages/admin/Receptionists"));
+const Pharmacists = lazy(() => import("../../pages/admin/Pharmacists"));
+const Therapists = lazy(() => import("../../pages/admin/Therapists"));
+const Patients = lazy(() => import("../../pages/admin/Patients"));
 
-// Treatment Therapists =================================
-import TreatmentTherapists from "../../pages/admin/TreatmentTherapists/Therapists/View"
+// ================= CONSULTATION =================
+const Slot_View = lazy(() =>
+    import("../../pages/admin/Consultation/slot/View")
+);
 
-// Consultation =========================================
-import Slot_View from "../../pages/admin/Consultation/slot/View";
-import Consultation_View from "../../pages/admin/Consultation/DoctorConsultation/View";
-import Therapists_View from "../../pages/admin/TreatmentTherapists/Therapists/View";
-import Therapists_Assignment_View from "../../pages/admin/TreatmentTherapists/TherapistsAssignment/View";
-import Inventory_View from "../../pages/admin/inventory/View";
-import Food_Charges_View from "../../pages/admin/Foodcharges/View";
-import Admissions_View from "../../pages/admin/analytics/admissions";
-import Discharges from "../../pages/admin/analytics/Discharges";
-import PatientRecords from "../../pages/admin/analytics/PatientRecords";
+const Consultation_View = lazy(() =>
+    import("../../pages/admin/Consultation/DoctorConsultation/View")
+);
+
+// ================= THERAPISTS =================
+const Therapists_View = lazy(() =>
+    import("../../pages/admin/TreatmentTherapists/Therapists/View")
+);
+
+const Therapists_Assignment_View = lazy(() =>
+    import("../../pages/admin/TreatmentTherapists/TherapistsAssignment/View")
+);
+
+// ================= INVENTORY =================
+const Inventory_View = lazy(() =>
+    import("../../pages/admin/inventory/View")
+);
+
+// ================= FOOD CHARGES =================
+const Food_Charges_View = lazy(() =>
+    import("../../pages/admin/Foodcharges/View")
+);
+
+// ================= ANALYTICS =================
+const Admissions_View = lazy(() =>
+    import("../../pages/admin/analytics/admissions")
+);
+
+const Discharges = lazy(() =>
+    import("../../pages/admin/analytics/Discharges")
+);
+
+const PatientRecords = lazy(() =>
+    import("../../pages/admin/analytics/PatientRecords")
+);
 
 // Stock List======================================
 
@@ -49,7 +78,7 @@ export const adminRoutes = [
 
     // Food Charges ===================
     { path: "/foodcharges/view", element: <Food_Charges_View /> },
-    
+
     // analytics =============================
     { path: "/analytics/admissions", element: <Admissions_View /> },
     { path: "/analytics/discharges", element: <Discharges /> },
