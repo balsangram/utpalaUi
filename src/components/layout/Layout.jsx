@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
+import SidebarLoader from "./SidebarLoader";
 
 function Layout() {
     return (
@@ -12,16 +12,18 @@ function Layout() {
 
                 {/* SIDEBAR FIXED WIDTH */}
                 <div style={{ width: "250px", minWidth: "250px" }}>
-                    <Sidebar />
+                    <SidebarLoader />
                 </div>
 
                 {/* PAGE CONTENT */}
-                <div style={{
-                    flexGrow: 1,
-                    padding: "20px",
-                    overflowY: "auto",
-                    background: "var(--color-background)"
-                }}>
+                <div
+                    style={{
+                        flexGrow: 1,
+                        padding: "20px",
+                        overflowY: "auto",
+                        background: "var(--color-background)",
+                    }}
+                >
                     <Outlet />
                 </div>
             </div>

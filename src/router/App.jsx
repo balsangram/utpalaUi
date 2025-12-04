@@ -4,23 +4,31 @@ import Layout from "../components/layout/Layout";
 
 import { authRoutes } from "./subRouter/authRoutes";
 import { adminRoutes } from "./subRouter/adminRoutes";
-// import other route groups here
+import { doctorRoutes } from "./subRouter/doctorRoutes";  // ✅ FIXED
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* ================= PUBLIC ROUTES (NO SIDEBAR/HEADER) ================= */}
+        {/* ===== PUBLIC ROUTES (LOGIN, REGISTER) ===== */}
         {authRoutes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
         ))}
 
-        {/* ================= PROTECTED ROUTES WRAPPED WITH LAYOUT ================= */}
+        {/* ===== PROTECTED ROUTES (WITH SIDEBAR + HEADER) ===== */}
         <Route element={<Layout />}>
+
+          {/* ADMIN ROUTES */}
           {adminRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
+
+          {/* DOCTOR ROUTES → MUST ADD */}
+          {doctorRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
         </Route>
 
       </Routes>

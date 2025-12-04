@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 
-function HeadingCard({
+function HeadingCardingCard({
     category = "TREATMENT & THERAPY",
     title = "Therapy Scheduling & Pricing",
     subtitle = "Coordinate therapy offerings, assign specialists, and keep treatment costs transparent for your front-desk and billing teams.",
@@ -47,4 +47,4 @@ function HeadingCard({
     );
 }
 
-export default HeadingCard;
+export default HeadingCardingCard;
