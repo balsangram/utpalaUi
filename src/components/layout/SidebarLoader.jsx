@@ -6,7 +6,8 @@ function SidebarLoader() {
     // const role = localStorage.getItem("role") || "admin";
     // const role = localStorage.getItem("role") || "doctor";
     // const role = localStorage.getItem("role") || "nurse";
-    const role = localStorage.getItem("role") || "receptionist";
+    // const role = localStorage.getItem("role") || "receptionist";
+    const role = localStorage.getItem("role") || "pharmacist";
     const menu = sidebarMenus[role] || [];
 
     return <SidebarComponent roleMenu={menu} activeItem="" />;

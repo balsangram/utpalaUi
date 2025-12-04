@@ -269,6 +269,41 @@ export const sidebarMenus = {
             icon: <AssessmentIcon />,
             to: "/receptionist/reports",
         },
+    ],
+    pharmacist: [
+        {
+            key: "dashboard",
+            label: "Dashboard",
+            icon: <DashboardIcon style={{ color: "var(--color-icons)" }} />,
+            to: "/pharmacist/dashboard",
+        },
+
+        {
+            key: "prescriptions",
+            label: "Prescriptions",
+            icon: <MedicalServicesIcon style={{ color: "var(--color-icons)" }} />,
+            children: [
+                {
+                    key: "outpatient",
+                    label: "Outpatient",
+                    to: "/pharmacist/prescriptions/outpatient",
+                    icon: <MedicalServicesIcon style={{ color: "var(--color-icons)" }} />,
+                },
+                {
+                    key: "inpatient",
+                    label: "Inpatient",
+                    to: "/pharmacist/prescriptions/inpatient",
+                    icon: <MedicalServicesIcon style={{ color: "var(--color-icons)" }} />,
+                },
+            ],
+        },
+
+        {
+            key: "inventory",
+            label: "Discharge Preparation",
+            icon: <AssignmentTurnedInIcon style={{ color: "var(--color-icons)" }} />,
+            to: "/pharmacist/inventory",
+        },
     ]
 
 
