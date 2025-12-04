@@ -8,6 +8,8 @@ import { doctorRoutes } from "./subRouter/doctorRoutes";
 import { nurseRoutes } from "./subRouter/nurseRoutes";
 import { receptionRoutes } from "./subRouter/receptionRoutes";
 import { pharmacistRoutes } from "./subRouter/pharmacistRoutes";
+import { therapistRoutes } from "./subRouter/TherapistRouter";
+import { patientRoutes } from "./subRouter/patientRouter";
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -40,6 +42,14 @@ function AppRouter() {
           ))}
           {/* PHARMACIST ROUTES → MUST ADD */}
           {pharmacistRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+          {/* THERAPIST ROUTES → MUST ADD */}
+          {therapistRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+          {/* PATIENT ROUTES → MUST ADD */}
+          {patientRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
 
