@@ -12,9 +12,12 @@
    /* ===========================
       BACKGROUND COLORS
   ============================ */
-   --color-bg-header: #5C3D2E;
+   --color-bg-header: #4d543f;
+   --color-bg-header-scroll: #636A55;
    /* Deep Brown */
-   --color-bg-side-bar: #cd987d38;
+   --color-bg-side-bar: #636A55;
+   --color-bg-side-bar-hover: #cd987d38;
+   --color-bg-side-bar-active: #5A5044;
    /* Light Transparent Beige */
    --color-background: #EFE7DA;
    /* Soft Cream Background */
@@ -25,12 +28,13 @@
    --color-bg-table: #F7F3ED;
    /* Table Background */
 
+
    /* ===========================
       TEXT COLORS
   ============================ */
    --color-text-header: #EFEAD8;
    /* Light text on header */
-   --color-text-side-bar: #5C3D2E;
+   --color-text-side-bar: #EFE7DA;
    /* Dark Brown text on Sidebar */
    --color-text-dark: #5C3D2E;
    /* Dark Brown */
@@ -44,7 +48,7 @@
    /* ===========================
       ACCENTS & ICON COLORS
   ============================ */
-   --color-icons: #556B2F;
+   --color-icons: #8E714F;
    /* Olive Icons */
    --color-accent: #F2E8C6;
    /* Soft Yellow Accent */

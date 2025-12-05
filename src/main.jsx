@@ -17,9 +17,13 @@ import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import '../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Approuter />
+    <Provider store={store}>
+      <Approuter />
+    </Provider>
   </StrictMode>,
 )

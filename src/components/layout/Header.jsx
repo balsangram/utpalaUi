@@ -8,31 +8,23 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
-import Popover from '@mui/material/Popover';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'; // For read notifications
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+// import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
+// import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import logo from "../../assets/logo/utpala_logo.png";
-import { Link } from 'react-router-dom';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleSidebar } from '../../redux/slices/uiSlice';
+import NotificationDrawer from './component/NotificationDrawer'; // Import the separate component here
+
 const settings = [
   { label: 'Profile', icon: <PersonIcon fontSize="small" /> },
   { label: 'Account', icon: <AccountCircleIcon fontSize="small" /> },
@@ -40,48 +32,14 @@ const settings = [
   { label: 'Logout', icon: <LogoutIcon fontSize="small" /> },
 ];
 
-// Mock notifications data - replace with real API fetch
-const mockNotifications = [
-  {
-    id: 1,
-    title: 'New Patient Admission',
-    description: 'John Doe has been admitted to Ward 5.',
-    time: '2 min ago',
-    unread: true,
-    type: 'admission',
-  },
-  {
-    id: 2,
-    title: 'Appointment Reminder',
-    description: 'Dr. Smith\'s consultation slot is upcoming.',
-    time: '1 hour ago',
-    unread: false,
-    type: 'appointment',
-  },
-  {
-    id: 3,
-    title: 'Inventory Low Stock',
-    description: 'Paracetamol stock is below threshold.',
-    time: '3 hours ago',
-    unread: true,
-    type: 'inventory',
-  },
-  {
-    id: 4,
-    title: 'System Update Available',
-    description: 'Update to version 2.1.3 is ready.',
-    time: 'Yesterday',
-    unread: false,
-    type: 'system',
-  },
-];
-
 function ResponsiveAppBar({ pageTitle = '' }) {
+  const dispatch = useDispatch();
+  const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorElNotifications, setAnchorElNotifications] = React.useState(null);
+  const [notificationDrawerOpen, setNotificationDrawerOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const [unreadNotifications, setUnreadNotifications] = React.useState(2); // Dynamic based on mock data
+  const [unreadNotifications, setUnreadNotifications] = React.useState(2);
 
   // Scroll detection
   React.useEffect(() => {
@@ -94,23 +52,17 @@ function ResponsiveAppBar({ pageTitle = '' }) {
 
   const handleNavClose = () => setAnchorElNav(null);
   const handleUserClose = () => setAnchorElUser(null);
-  const handleNotificationsOpen = (event) => setAnchorElNotifications(event.currentTarget);
-  const handleNotificationsClose = () => setAnchorElNotifications(null);
 
-  const handleNotificationClick = (notification) => {
-    if (notification.unread) {
-      // Simulate marking as read - update state
-      setUnreadNotifications((prev) => Math.max(0, prev - 1));
-    }
-    // Here, you could navigate or trigger an action
-    console.log('Notification clicked:', notification);
-    handleNotificationsClose();
+  const handleNotificationToggle = () => {
+    setNotificationDrawerOpen((prev) => !prev);
   };
 
-  const notifications = mockNotifications.map((notif) => ({
-    ...notif,
-    unread: notif.unread && unreadNotifications > 0, // Sync with count
-  }));
+  const handleToggleSidebar = () => {
+    dispatch(toggleSidebar());
+  };
+
+  // Hover state for UTPALA text
+  const [utpalaHovered, setUtpalaHovered] = React.useState(false);
 
   return (
     <AppBar
@@ -120,7 +72,7 @@ function ResponsiveAppBar({ pageTitle = '' }) {
         zIndex: 1201,
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         backgroundColor: scrolled
-          ? "var(--color-primary) !important"
+          ? "var(--color-bg-header-scroll) !important"
           : "var(--color-bg-header) !important",
         color: "var(--color-text-header)",
         boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.1)" : "none",
@@ -150,12 +102,16 @@ function ResponsiveAppBar({ pageTitle = '' }) {
               noWrap
               component="a"
               href="/"
+              onMouseEnter={() => setUtpalaHovered(true)}
+              onMouseLeave={() => setUtpalaHovered(false)}
               sx={{
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'serif',
                 fontWeight: 800,
                 letterSpacing: '.15rem',
-                color: "inherit",
+                color: utpalaHovered
+                  ? (scrolled ? "#8B4513" : "#228B22") // Brown on scroll, green initially
+                  : "inherit",
                 textDecoration: 'none',
                 transition: "color 0.2s ease",
                 mr: 2,
@@ -165,79 +121,34 @@ function ResponsiveAppBar({ pageTitle = '' }) {
             </Typography>
           </Box>
 
-          {/* PAGE TITLE */}
-          {pageTitle && (
-            <Typography
-              variant="h6"
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                flexGrow: 1,
-                fontWeight: 600,
-                color: "inherit",
-                ml: 2,
-              }}
-            >
-              {pageTitle}
-            </Typography>
-          )}
-
-          {/* CALENDAR ICON */}
-          <Tooltip title="Calendar">
+          {/* DESKTOP SIDEBAR TOGGLE */}
+          <Tooltip title={sidebarOpen ? "Close Sidebar" : "Open Sidebar"}>
             <IconButton
               size="large"
               color="inherit"
+              onClick={handleToggleSidebar}
               sx={{
-                display: { xs: "none", md: "flex" },
+                display: { xs: 'none', md: 'flex' },
                 transition: "all 0.2s ease",
-                "&:hover": { backgroundColor: "rgba(255,255,255,0.1)", transform: "rotate(5deg)" },
+                "&:hover": { backgroundColor: "rgba(255,255,255,0.1)", transform: "scale(1.05)" },
+                transform: sidebarOpen ? 'rotate(180deg)' : 'none',
               }}
             >
-              <KeyboardArrowLeftIcon />
-              <ChevronRightIcon />
+              <MenuIcon />
             </IconButton>
           </Tooltip>
 
-          {/* MOBILE MENU */}
+          {/* MOBILE MENU (Toggle Sidebar on Mobile for Consistency) */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={(e) => setAnchorElNav(e.currentTarget)}
+              aria-label="toggle sidebar"
+              onClick={handleToggleSidebar}
               color="inherit"
               sx={{ ml: "auto" }}
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleNavClose}
-              sx={{
-                mt: 1,
-                '& .MuiPaper-root': { minWidth: 200 },
-              }}
-            >
-              {settings.slice(0, -1).map(({ label, icon }) => ( // Exclude Logout from mobile
-                <MenuItem key={label} onClick={handleNavClose}>
-                  <Typography sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {icon}
-                    {label}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
 
           {/* DESKTOP NAV (Optional - Add if needed) */}
@@ -246,205 +157,45 @@ function ResponsiveAppBar({ pageTitle = '' }) {
           {/* RIGHT SIDE SECTION */}
           <Box sx={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
 
-            {/* NOTIFICATION WITH BADGE - Updated to "ball icon" (CircleNotifications) */}
-            <Tooltip title={`${unreadNotifications} unread notifications`}>
+            {/* Notification Bell Icon with Red Dot Badge (No Count) */}
+            <Tooltip title="Notifications">
               <IconButton
                 size="large"
                 color="inherit"
-                onClick={handleNotificationsOpen}
+                onClick={handleNotificationToggle}
                 sx={{
                   transition: "all 0.2s ease",
                   "&:hover": { backgroundColor: "rgba(255,255,255,0.1)", transform: "scale(1.05)" },
                 }}
               >
                 <Badge
-                  variant="dot"
+                  badgeContent={null}
+                  invisible={!unreadNotifications || unreadNotifications === 0}
                   color="error"
+                  variant="dot"
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
                   sx={{
                     '& .MuiBadge-badge': {
-                      height: "10px",
-                      minWidth: "10px",
-                      borderRadius: "50%",
-                    }
+                      backgroundColor: '#f44336', // Red dot
+                      boxShadow: '0 0 0 2px var(--color-bg-header)', // Border to make it pop
+                    },
                   }}
                 >
-                  <CircleNotificationsIcon />
+                  <NotificationsIcon />
                 </Badge>
-
               </IconButton>
             </Tooltip>
 
-            {/* NOTIFICATIONS POPOVER CARD */}
-            <Popover
-              open={Boolean(anchorElNotifications)}
-              anchorEl={anchorElNotifications}
-              onClose={handleNotificationsClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              sx={{
-                mt: 1,
-                "& .MuiPopover-paper": {
-                  width: 360,
-                  maxWidth: "92vw",
-                  maxHeight: 420,
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
-                },
-              }}
-            >
-              <Card
-                elevation={0}
-                sx={{
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  bgcolor: "var(--color-bg-card)",
-                  border: `1px solid var(--color-border)`,
-                }}
-              >
-                <CardContent sx={{ p: 0 }}>
-
-                  {/* Header (Simplified) */}
-                  <Box
-                    sx={{
-                      p: 2,
-                      bgcolor: "var(--color-primary)",
-                      color: "var(--color-text-white)",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      sx={{ fontWeight: 700, fontSize: "1.05rem" }}
-                    >
-                      Notifications
-                    </Typography>
-                  </Box>
-
-                  {/* Notification List */}
-                  <List
-                    sx={{
-                      p: 0,
-                      maxHeight: 350,
-                      overflowY: "auto",
-
-                      /* remove horizontal scroll completely */
-                      overflowX: "hidden",
-
-                      "&::-webkit-scrollbar": {
-                        width: "4px",
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        background: "var(--color-text-muted)",
-                        borderRadius: "4px",
-                      },
-                    }}
-                  >
-                    {notifications.map((notification) => (
-                      <ListItem
-                        key={notification.id}
-                        button
-                        onClick={() => handleNotificationClick(notification)}
-                        sx={{
-                          alignItems: "flex-start",
-                          px: 2,
-                          py: 1.5,
-                          borderBottom: `1px solid var(--color-border)`,
-
-                          bgcolor: notification.unread
-                            ? "rgba(205,152,125,0.12)"
-                            : "transparent",
-
-                          transition: "background 0.25s ease",
-                          "&:hover": {
-                            bgcolor: "rgba(205,152,125,0.22)",
-                          },
-                          "&:last-child": { borderBottom: "none" },
-                        }}
-                      >
-                        {/* Unread Dot */}
-                        <ListItemAvatar sx={{ minWidth: 42 }}>
-                          <Box
-                            sx={{
-                              width: 10,
-                              height: 10,
-                              borderRadius: "50%",
-                              bgcolor: notification.unread
-                                ? "var(--color-primary)"
-                                : "var(--color-text-muted)",
-                              mt: 0.5,
-                            }}
-                          />
-                        </ListItemAvatar>
-
-                        {/* Text Content */}
-                        <ListItemText
-                          primary={
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                fontWeight: 600,
-                                color: "var(--color-text-dark)",
-                              }}
-                            >
-                              {notification.title}
-                            </Typography>
-                          }
-                          secondary={
-                            <Box sx={{ mt: 0.5 }}>
-                              <Typography
-                                variant="caption"
-                                sx={{
-                                  color: "var(--color-text-muted)",
-                                  display: "block",
-                                  fontSize: "0.77rem",
-                                }}
-                              >
-                                {notification.description}
-                              </Typography>
-
-                              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mt: 0.3 }}>
-                                <AccessTimeIcon
-                                  fontSize="inherit"
-                                  sx={{ color: "var(--color-text-muted)", fontSize: "0.75rem" }}
-                                />
-                                <Typography
-                                  variant="caption"
-                                  sx={{
-                                    color: "var(--color-text-muted)",
-                                    fontSize: "0.75rem",
-                                    fontWeight: 500,
-                                  }}
-                                >
-                                  {notification.time}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          }
-                        />
-                      </ListItem>
-                    ))}
-
-                    {notifications.length === 0 && (
-                      <ListItem sx={{ justifyContent: "center", py: 3 }}>
-                        <ListItemText
-                          primary="No notifications"
-                          secondary="You're all caught up!"
-                          sx={{
-                            textAlign: "center",
-                            color: "var(--color-text-muted)",
-                          }}
-                        />
-                      </ListItem>
-                    )}
-                  </List>
-
-                </CardContent>
-              </Card>
-            </Popover>
-
+            {/* Single Call to the Separate Component - Handles Display on Click */}
+            <NotificationDrawer
+              open={notificationDrawerOpen}
+              onClose={() => setNotificationDrawerOpen(false)}
+              unreadCount={unreadNotifications}
+              onUnreadChange={setUnreadNotifications}
+            />
 
             {/* USER INFO */}
             <Box sx={{ display: { xs: 'none', md: 'flex' }, flexDirection: "column", textAlign: "right", lineHeight: "1rem" }}>

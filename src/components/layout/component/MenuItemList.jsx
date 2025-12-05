@@ -2,98 +2,53 @@
 
 // import { Link } from "react-router-dom";
 
-// const MenuItemList = ({ className, items, activeClassName, style = {} }) => {
+// const MenuItemList = ({ className = "", items = [], activeItem }) => {
 //     return (
-//         <ul className={className} style={style}>
+//         <ul
+//             className={className}
+//             style={{
+//                 listStyle: "none",   // 🔥 Removes the dot
+//                 padding: 0,          // 🔥 Removes left extra spacing
+//                 margin: 0,           // Optional cleanup
+//             }}
+//         >
 //             {items.map((item) => {
-//                 const isActive = activeClassName === item.key;
-//                 const baseLinkStyle = {
-//                     display: "block",
-//                     padding: "12px 20px 12px 35px",
-//                     color: isActive ? "var(--color-primary)" : "var(--color-text-side-bar)",
-//                     textDecoration: "none",
-//                     fontSize: "14px",
-//                     fontWeight: 500,
-//                     borderLeft: isActive ? "3px solid var(--color-primary)" : "3px solid transparent",
-//                     backgroundColor: isActive ? "rgba(255, 255, 255, 0.1)" : "transparent",
-//                     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-//                     transform: isActive ? "translateX(5px)" : "translateX(0)",
-//                     position: "relative",
-//                     overflow: "hidden",
-//                 };
-
-//                 const dotStyle = {
-//                     position: "absolute",
-//                     left: "18px",
-//                     top: "50%",
-//                     transform: "translateY(-50%)",
-//                     width: "6px",
-//                     height: "6px",
-//                     backgroundColor: isActive ? "var(--color-primary)" : "var(--color-text-side-bar)",
-//                     borderRadius: "50%",
-//                     transition: "all 0.3s ease",
-//                     opacity: isActive ? 1 : 0.5,
-//                 };
-
-//                 const underlineStyle = {
-//                     position: "absolute",
-//                     bottom: "0",
-//                     left: "0",
-//                     width: "100%",
-//                     height: "2px",
-//                     backgroundColor: "var(--color-primary)",
-//                     transform: isActive ? "scaleX(1)" : "scaleX(0)",
-//                     transition: "transform 0.3s ease",
-//                 };
+//                 const isActive = activeItem === item.key;
 
 //                 return (
 //                     <li
 //                         key={item.key}
-//                         className={`${activeClassName === item.key ? "active" : ""}`}
+//                         className={`menu-item ${isActive ? "active" : ""}`}
 //                         style={{
-//                             listStyle: "none",
-//                             margin: "0",
-//                             padding: "0",
-//                             overflow: "hidden",
+//                             padding: "6px 20px",
+//                             cursor: "pointer",
+//                             transition: "background-color 0.2s ease",
+//                         }}
+//                         onMouseEnter={(e) => {
+//                             e.currentTarget.style.backgroundColor = "var(--color-bg-side-bar-hover)";
+//                         }}
+//                         onMouseLeave={(e) => {
+//                             e.currentTarget.style.backgroundColor = isActive
+//                                 ? "var(--color-bg-side-bar-active)"
+//                                 : "transparent";
 //                         }}
 //                     >
+
 //                         <Link
 //                             to={item.to}
-//                             style={baseLinkStyle}
-//                             className="menu-item-link"
-//                             onMouseEnter={(e) => {
-//                                 e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-//                                 e.currentTarget.style.borderLeftColor = "var(--color-primary)";
-//                                 e.currentTarget.style.transform = "translateX(5px)";
-//                                 e.currentTarget.style.color = "var(--color-primary)";
-//                                 e.currentTarget.querySelector(".menu-dot").style.backgroundColor = "var(--color-primary)";
-//                                 e.currentTarget.querySelector(".menu-dot").style.opacity = "1";
-//                                 e.currentTarget.querySelector(".menu-underline").style.transform = "scaleX(1)";
-//                             }}
-//                             onMouseLeave={(e) => {
-//                                 if (!isActive) {
-//                                     e.currentTarget.style.backgroundColor = "transparent";
-//                                     e.currentTarget.style.borderLeftColor = "transparent";
-//                                     e.currentTarget.style.transform = "translateX(0)";
-//                                     e.currentTarget.style.color = "var(--color-text-side-bar)";
-//                                     e.currentTarget.querySelector(".menu-dot").style.backgroundColor = "var(--color-text-side-bar)";
-//                                     e.currentTarget.querySelector(".menu-dot").style.opacity = "0.5";
-//                                     e.currentTarget.querySelector(".menu-underline").style.transform = "scaleX(0)";
-//                                 }
+//                             className="menu-link"
+//                             style={{
+//                                 textDecoration: "none",
 //                             }}
 //                         >
-//                             <div className="menu-dot" style={dotStyle} />
 //                             <span
+//                                 className="menu-label"
 //                                 style={{
-//                                     display: "inline-block",
-//                                     transition: "all 0.3s ease",
-//                                     transform: "scale(1)",
+//                                     color: "var(--color-text-side-bar)",
 //                                 }}
-//                                 className="link-label"
 //                             >
 //                                 {item.label}
 //                             </span>
-//                             <div className="menu-underline" style={underlineStyle} />
 //                         </Link>
 //                     </li>
 //                 );
@@ -109,17 +64,87 @@ import { Link } from "react-router-dom";
 
 const MenuItemList = ({ className = "", items = [], activeItem }) => {
     return (
-        <ul className={className}>
+        <ul
+            className={`submenu-list ${className}`}
+            style={{
+                listStyle: "none",
+                padding: "4px 0 4px 0", // Minimal vertical padding; horizontal indent via CSS
+                margin: 0,
+            }}
+        >
             {items.map((item) => {
                 const isActive = activeItem === item.key;
 
                 return (
                     <li
                         key={item.key}
-                        className={`menu-item ${isActive ? "active" : ""}`}
+                        className={`submenu-item ${isActive ? "active" : ""}`}
+                        style={{
+                            listStyle: "none",
+                            marginBottom: "2px", // Tight spacing between items
+                        }}
                     >
-                        <Link to={item.to} className="menu-link">
-                            <span className="menu-label">{item.label}</span>
+                        <Link
+                            to={item.to || "#"} // Fallback if no to
+                            className="submenu-link"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "12px",
+                                padding: "10px 16px 10px 32px", // Indented padding as per demo
+                                margin: "0 8px",
+                                borderRadius: "8px",
+                                color: "var(--color-text-side-bar)",
+                                textDecoration: "none",
+                                fontSize: "13px",
+                                transition: "all 0.2s ease",
+                                position: "relative",
+                                cursor: "pointer",
+                                backgroundColor: isActive
+                                    ? "var(--color-bg-side-bar-active)"
+                                    : "transparent",
+                            }}
+                            onMouseEnter={(e) => {
+                                if (!isActive) {
+                                    e.currentTarget.style.backgroundColor = "var(--color-bg-side-bar-hover)";
+                                    e.currentTarget.style.color = "var(--color-text-side-bar-active)"; // Optional: darken on hover
+                                    e.currentTarget.style.paddingLeft = "36px"; // Subtle indent on hover
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = isActive
+                                    ? "var(--color-bg-side-bar-active)"
+                                    : "transparent";
+                                e.currentTarget.style.color = "var(--color-text-side-bar)";
+                                e.currentTarget.style.paddingLeft = "32px";
+                            }}
+                        >
+                            {/* Vertical line pseudo-element via CSS */}
+                            <span
+                                className="submenu-dot"
+                                style={{
+                                    width: "6px",
+                                    height: "6px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "currentColor",
+                                    opacity: isActive ? 1 : 0.4,
+                                    flexShrink: 0,
+                                    transition: "all 0.2s ease",
+                                    transform: isActive ? "scale(1.3)" : "scale(1)",
+                                }}
+                            />
+                            <span
+                                className="submenu-text"
+                                style={{
+                                    flex: 1,
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    fontWeight: isActive ? 600 : "normal",
+                                }}
+                            >
+                                {item.label}
+                            </span>
                         </Link>
                     </li>
                 );
