@@ -103,19 +103,19 @@ export const sidebarMenus = {
         {
             key: "dashboard",
             label: "Dashboard",
-            icon: <DashboardIcon />,
+            icon: <DashboardIcon style={{ color: "var(--color-icons)" }} />,
             to: "/doctor/dashboard",
         },
         {
             key: "myPatients",
             label: "My Patients",
-            icon: <PeopleIcon />,
+            icon: <PeopleIcon style={{ color: "var(--color-icons)" }} />,
             to: "/doctor/my-patients",
         },
         {
             key: "inPatients",
             label: "In-Patients",
-            icon: <LocalHospitalIcon />,
+            icon: <LocalHospitalIcon style={{ color: "var(--color-icons)" }} />,
             to: "/doctor/in-patients",
         },
     ],
@@ -125,19 +125,19 @@ export const sidebarMenus = {
         {
             key: "dashboard",
             label: "Dashboard",
-            icon: <DashboardIcon />,
+            icon: <DashboardIcon style={{ color: "var(--color-icons)" }} />,
             to: "/nurse/dashboard",
         },
         {
             key: "patientMonitoring",
             label: "Patient Monitoring",
-            icon: <MonitorHeartIcon />,  // updated icon
+            icon: <MonitorHeartIcon style={{ color: "var(--color-icons)" }} />,  // updated icon
             to: "/nurse/monitoring",
         },
         {
             key: "dischargePreparation",
             label: "Discharge Preparation",
-            icon: <AssignmentTurnedInIcon />, // updated icon
+            icon: <AssignmentTurnedInIcon style={{ color: "var(--color-icons)" }} />, // updated icon
             to: "/nurse/patients",
         },
     ],
@@ -145,37 +145,37 @@ export const sidebarMenus = {
         {
             key: "dashboard",
             label: "Dashboard",
-            icon: <DashboardIcon />,
+            icon: <DashboardIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/dashboard",
         },
         {
             key: "appointments",
             label: "Appointments",
-            icon: <EventNoteIcon />,
+            icon: <EventNoteIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/appointments",
         },
         {
             key: "inpatients",
             label: "Inpatients",
-            icon: <HotelIcon />,
+            icon: <HotelIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/inpatient",
         },
         {
             key: "payments",
             label: "Payments",
-            icon: <PaymentsIcon />,
+            icon: <PaymentsIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/payments",
         },
         {
             key: "marketing",
             label: "Marketing",
-            icon: <CampaignIcon />,
+            icon: <CampaignIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/marketing",
         },
         {
             key: "reports",
             label: "Reports",
-            icon: <AssessmentIcon />,
+            icon: <AssessmentIcon style={{ color: "var(--color-icons)" }} />,
             to: "/receptionist/reports",
         },
     ],

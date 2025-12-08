@@ -6,6 +6,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 function dashboard() {
+    // ⭐ Scroll to top on page load
+ 
     return (
         <div className='bg-red-400'>
             <Breadcrumb

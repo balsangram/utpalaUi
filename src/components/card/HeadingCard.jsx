@@ -1,10 +1,12 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Breadcrumb from "../breadcrumb/Breadcrumb";
 
-function HeadingCardingCard({
+function HeadingCard({
     category = "TREATMENT & THERAPY",
     title = "Therapy Scheduling & Pricing",
     subtitle = "Coordinate therapy offerings, assign specialists, and keep treatment costs transparent for your front-desk and billing teams.",
+    breadcrumbItems = [], // 👈 Accept breadcrumb items
 }) {
     return (
         <Box
@@ -12,22 +14,13 @@ function HeadingCardingCard({
                 width: "100%",
                 borderRadius: 4,
                 padding: 4,
-                background: "var(--color-bg-side-bar)",
+                background: "var(--color-bg-card)",
                 color: "var(--color-text-dark)",
                 mb: 3,
             }}
         >
-            {/* Category Label */}
-            <Typography
-                variant="overline"
-                sx={{
-                    opacity: 0.8,
-                    letterSpacing: 2,
-                    fontWeight: 600,
-                }}
-            >
-                {category}
-            </Typography>
+            {/* Breadcrumb */}
+            <Breadcrumb items={breadcrumbItems} />
 
             {/* Title */}
             <Typography
@@ -38,13 +31,15 @@ function HeadingCardingCard({
             </Typography>
 
             {/* Subtitle */}
-            <Typography variant="body1" sx={{ opacity: 0.9, maxWidth: "700px" }}>
+            <Typography
+                variant="body1"
+                sx={{ opacity: 0.9, maxWidth: "700px" }}
+            >
                 {subtitle}
             </Typography>
-
 
         </Box>
     );
 }
 
-export default HeadingCardingCard;
+export default HeadingCard;

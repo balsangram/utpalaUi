@@ -10,10 +10,14 @@ import { receptionRoutes } from "./subRouter/receptionRoutes";
 import { pharmacistRoutes } from "./subRouter/pharmacistRoutes";
 import { therapistRoutes } from "./subRouter/TherapistRouter";
 import { patientRoutes } from "./subRouter/patientRouter";
+import ScrollToTop from "./ScrollToTop";
 function AppRouter() {
   return (
     <BrowserRouter>
+      {/* 🔥 THIS MAKES EVERY PAGE SCROLL TO TOP */}
+      <ScrollToTop />
       <Routes>
+
 
         {/* ===== PUBLIC ROUTES (LOGIN, REGISTER) ===== */}
         {authRoutes.map((route, index) => (

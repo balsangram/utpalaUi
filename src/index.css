@@ -12,8 +12,8 @@
    /* ===========================
       BACKGROUND COLORS
   ============================ */
-   --color-bg-header: #4d543f;
-   --color-bg-header-scroll: #636A55;
+   --color-bg-header: #5C3D2E;
+   --color-bg-header-scroll: #5C3D2E;
    /* Deep Brown */
    --color-bg-side-bar: #636A55;
    --color-bg-side-bar-hover: #cd987d38;
@@ -25,8 +25,11 @@
    /* White Cards */
    --color-bg-hover: #F4F0E5;
    /* Soft Hover Beige */
-   --color-bg-table: #F7F3ED;
+
+   /* table ========================= */
+   --color-bg-table: #FFFFFF;
    /* Table Background */
+   --color-bg-table-button: #5C3D2E;
 
 
    /* ===========================
@@ -45,6 +48,8 @@
    --color-text-white: #FFFFFF;
    /* White text */
 
+   --color-checkmark: #3F4F23;
+   --color-checkmark-light: #556B2F;
    /* ===========================
       ACCENTS & ICON COLORS
   ============================ */
