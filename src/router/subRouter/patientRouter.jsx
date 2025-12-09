@@ -1,7 +1,12 @@
 import React, { lazy } from "react";
+// import PatientProfile from "../../pages/patient/Profile";
+// import Family_Members_View from "../../pages/patient/familyMembers/View";
 // Lazy-loaded components
 const Patient_Dashboard = lazy(() =>
     import("../../pages/patient/Dashboard")
+);
+const PatientProfile = lazy(() =>
+    import("../../pages/patient/Profile")
 );
 
 const Family_Members_View = lazy(() =>
@@ -25,6 +30,7 @@ const Reports_View = lazy(() =>
 
 
 export const patientRoutes = [
+    { path: "/patient/profile", element: <PatientProfile /> },
     { path: "/patient/dashboard", element: <Patient_Dashboard /> },
     { path: "/patient/family", element: < Family_Members_View /> },
     { path: "/patient/consultations", element: <Consultations_View /> },

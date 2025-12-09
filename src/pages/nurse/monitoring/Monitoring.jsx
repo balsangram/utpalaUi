@@ -12,26 +12,26 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // Mock data - will be replaced with API calls later
 const mockAdmittedPatients = [
-        {
+    {
         id: "inp-1",
         patientId: "PAT-001",
-            patientName: "Ramesh Kumar",
+        patientName: "Ramesh Kumar",
         age: 45,
         gender: "Male",
         ward: "Ward 3",
         bed: "Bed 12",
-            admissionDate: "2025-01-04",
+        admissionDate: "2025-01-04",
         doctorName: "Dr. Anil Singh",
-        },
-        {
+    },
+    {
         id: "inp-2",
         patientId: "PAT-002",
-            patientName: "Sita Devi",
+        patientName: "Sita Devi",
         age: 38,
         gender: "Female",
         ward: "Ward 1",
         bed: "Bed 05",
-            admissionDate: "2025-01-02",
+        admissionDate: "2025-01-02",
         doctorName: "Dr. Priya Sharma",
     },
     {
@@ -55,8 +55,8 @@ const mockAdmittedPatients = [
         bed: "Bed 10",
         admissionDate: "2025-01-06",
         doctorName: "Dr. Priya Sharma",
-        },
-    ];
+    },
+];
 
 const mockFoodItems = {
     breakfast: [
@@ -179,14 +179,13 @@ function Patient_Monitoring() {
 
     return (
         <Box sx={{ padding: "20px" }}>
-            {/* ⭐ Breadcrumb */}
-            <Breadcrumb items={breadcrumbItems} />
 
             {/* ⭐ Page Heading */}
             <HeadingCardingCard
                 category="PATIENT MONITORING"
                 title="Admitted Patients"
                 subtitle="Monitor patient vitals and log food intake for admitted patients"
+                breadcrumbItems={breadcrumbItems}
             />
 
             {/* ⭐ Patients Table */}
@@ -380,8 +379,8 @@ function Patient_Monitoring() {
                                                     setVitalsForm({ ...vitalsForm, respiratoryRate: e.target.value })
                                                 }
                                                 required
-            />
-        </div>
+                                            />
+                                        </div>
                                         <div className="col-md-12">
                                             <label className="form-label">Notes</label>
                                             <textarea
@@ -403,8 +402,8 @@ function Patient_Monitoring() {
                                     >
                                         Cancel
                                     </button>
-                                    <button 
-                                        type="submit" 
+                                    <button
+                                        type="submit"
                                         className="btn btn-primary"
                                         style={{
                                             backgroundColor: "#90EE90",
@@ -460,11 +459,10 @@ function Patient_Monitoring() {
                                                     key={category}
                                                     type="button"
                                                     onClick={() => setActiveCategory(category)}
-                                                    className={`btn btn-sm ${
-                                                        activeCategory === category
+                                                    className={`btn btn-sm ${activeCategory === category
                                                             ? "btn-primary"
                                                             : "btn-outline-secondary"
-                                                    }`}
+                                                        }`}
                                                     style={{
                                                         borderRadius: "50px",
                                                         textTransform: "capitalize",
@@ -486,9 +484,8 @@ function Patient_Monitoring() {
                                                 mockFoodItems[activeCategory].map((item) => (
                                                     <div
                                                         key={item.id}
-                                                        className={`p-2 mb-2 border rounded ${
-                                                            selectedFoodItems[item.id] ? "bg-light" : ""
-                                                        }`}
+                                                        className={`p-2 mb-2 border rounded ${selectedFoodItems[item.id] ? "bg-light" : ""
+                                                            }`}
                                                         style={{ cursor: "pointer" }}
                                                         onClick={() => toggleFoodItem(item.id)}
                                                     >
@@ -562,8 +559,8 @@ function Patient_Monitoring() {
                                     >
                                         Cancel
                                     </button>
-                                    <button 
-                                        type="submit" 
+                                    <button
+                                        type="submit"
                                         className="btn btn-primary"
                                         style={{
                                             backgroundColor: "#D4A574",

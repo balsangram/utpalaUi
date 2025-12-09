@@ -196,16 +196,16 @@ function Patient_Management_View() {
     // --------------- UI ---------------
     return (
         <div>
-            <Breadcrumb
-                items={[
-                    { label: "Doctor", url: "/doctor/dashboard" },
-                    { label: "All Patients" },
-                ]}
-            />
 
             <HeadingCard
                 title="Patient Management"
                 subtitle="View and manage all patients, their admissions, treatments, and statuses."
+                breadcrumbItems={
+                    [
+                        { label: "Doctor", url: "/doctor/dashboard" },
+                        { label: "All Patients" },
+                    ]
+                }
             />
 
             {/* DASHBOARD CARDS */}

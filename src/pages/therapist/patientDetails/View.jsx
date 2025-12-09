@@ -675,13 +675,12 @@ function Patient_List_View() {
                                                                 </div>
                                                             </div>
                                                             <span
-                                                                className={`badge ${
-                                                                    session.status === "Completed"
+                                                                className={`badge ${session.status === "Completed"
                                                                         ? "bg-success"
                                                                         : session.status === "Scheduled"
-                                                                        ? "bg-info"
-                                                                        : "bg-warning"
-                                                                }`}
+                                                                            ? "bg-info"
+                                                                            : "bg-warning"
+                                                                    }`}
                                                                 style={{
                                                                     borderRadius: "50px",
                                                                     padding: "4px 10px",

@@ -198,14 +198,13 @@ function Discharge_Preparation() {
 
     return (
         <Box sx={{ padding: "20px" }}>
-            {/* ⭐ Breadcrumb */}
-            <Breadcrumb items={breadcrumbItems} />
 
             {/* ⭐ Page Heading */}
             <HeadingCardingCard
                 category="DISCHARGE PREPARATION"
                 title="Patients Ready for Discharge"
                 subtitle="Complete discharge checklist, review patient details, and prepare patients for safe discharge"
+                breadcrumbItems={breadcrumbItems}
             />
 
             {/* ⭐ DASHBOARD CARDS */}
@@ -254,8 +253,8 @@ function Discharge_Preparation() {
                                         placeholder="Search by patient name, ID, ward, or diagnosis..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-            />
-        </div>
+                                    />
+                                </div>
                             </div>
                         </div>
 

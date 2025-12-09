@@ -374,21 +374,151 @@
 // export default Family_Members_View;
 
 
+// import React, { useState } from "react";
+// import HeadingCard from "../../../components/card/HeadingCard";
+// import FamilyMemberCard from "../../../components/card/patientCard/FamilyMammberCard";
+// import RedirectButton from "../../../components/buttons/RedirectButton";
+
+// // import AddMember from "../../../components/card/patientCard/AddMember";
+
+// import { Box, Typography, Modal } from "@mui/material";
+// import AddMember from "../../../components/card/patientCard/AddMember";
+
+// function Family_Members_View() {
+//     // Popup modal state
+//     const [openAdd, setOpenAdd] = useState(false);
+
+//     // Example Family Member Data
+//     const familyMembers = [
+//         {
+//             id: 1,
+//             name: "Riya",
+//             relation: "Daughter",
+//             phone: "1234567890",
+//             dob: "2022-02-23",
+//             gender: "Female",
+//         },
+//         {
+//             id: 2,
+//             name: "John",
+//             relation: "Father",
+//             phone: "9876543210",
+//             dob: "1975-10-12",
+//             gender: "Male",
+//         },
+//         {
+//             id: 3,
+//             name: "Sara",
+//             relation: "Mother",
+//             phone: "8975463210",
+//             dob: "1980-03-18",
+//             gender: "Female",
+//         },
+//     ];
+
+//     return (
+//         <div style={{ paddingBottom: "30px" }}>
+
+//             {/* Heading Section */}
+//             <HeadingCard
+//                 title="Your Family Members"
+//                 subtitle="Manage and view your registered family members easily.  
+//                 Keep their details updated to help doctors provide better care."
+//             />
+
+//             {/* Section Title with Button */}
+//             <Box
+//                 sx={{
+//                     display: "flex",
+//                     justifyContent: "space-between",
+//                     alignItems: "center",
+//                     mt: 3,
+//                     mb: 2,
+//                     mx: 1,
+//                 }}
+//             >
+//                 <Typography
+//                     variant="h6"
+//                     sx={{
+//                         fontWeight: 700,
+//                         color: "var(--color-text-dark)",
+//                     }}
+//                 >
+//                     Family Profiles
+//                 </Typography>
+
+//                 {/* Add Member Button */}
+//                 <RedirectButton
+//                     text="Add Member"
+//                     onClick={() => setOpenAdd(true)}
+//                     sx={{
+//                         background: "var(--color-primary)",
+//                         borderRadius: "8px",
+//                         padding: "6px 16px",
+//                     }}
+//                 />
+//             </Box>
+
+//             {/* Family Member Cards Grid */}
+//             <Box
+//                 sx={{
+//                     display: "grid",
+//                     gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+//                     gap: 2,
+//                 }}
+//             >
+//                 {familyMembers.map((member) => (
+//                     <FamilyMemberCard
+//                         key={member.id}
+//                         name={member.name}
+//                         relation={member.relation}
+//                         phone={member.phone}
+//                         dob={member.dob}
+//                         gender={member.gender}
+//                     />
+//                 ))}
+//             </Box>
+
+//             {/* Add Member Modal */}
+//             <Modal open={openAdd} onClose={() => setOpenAdd(false)}>
+//                 <Box
+//                     sx={{
+//                         display: "flex",
+//                         justifyContent: "center",
+//                         alignItems: "center",
+//                         height: "100vh",
+//                         padding: 2,
+//                     }}
+//                 >
+//                     <AddMember
+//                         onCancel={() => setOpenAdd(false)}
+//                         onSubmit={(data) => {
+//                             console.log("New Member Submitted:", data);
+//                             setOpenAdd(false);
+//                         }}
+//                     />
+//                 </Box>
+//             </Modal>
+//         </div>
+//     );
+// }
+
+// export default Family_Members_View;
+
+
 import React, { useState } from "react";
 import HeadingCard from "../../../components/card/HeadingCard";
 import FamilyMemberCard from "../../../components/card/patientCard/FamilyMammberCard";
 import RedirectButton from "../../../components/buttons/RedirectButton";
-
-// import AddMember from "../../../components/card/patientCard/AddMember";
-
-import { Box, Typography, Modal } from "@mui/material";
 import AddMember from "../../../components/card/patientCard/AddMember";
 
+import { Box, Typography, Modal } from "@mui/material";
+
 function Family_Members_View() {
-    // Popup modal state
+    // Add Member Modal State
     const [openAdd, setOpenAdd] = useState(false);
 
-    // Example Family Member Data
+    // Example Family Member Data (replace with API later)
     const familyMembers = [
         {
             id: 1,
@@ -419,14 +549,17 @@ function Family_Members_View() {
     return (
         <div style={{ paddingBottom: "30px" }}>
 
-            {/* Heading Section */}
+            {/* Heading */}
             <HeadingCard
                 title="Your Family Members"
-                subtitle="Manage and view your registered family members easily.  
-                Keep their details updated to help doctors provide better care."
+                subtitle="Manage your registered family members easily. Keep their profile updated to help doctors provide better care."
+                breadcrumbItems={[
+                    { label: "Patient", url: "/patient/dashboard" },
+                    { label: "Family Members" }
+                ]}
             />
 
-            {/* Section Title with Button */}
+            {/* Title + Add Button */}
             <Box
                 sx={{
                     display: "flex",
@@ -447,19 +580,18 @@ function Family_Members_View() {
                     Family Profiles
                 </Typography>
 
-                {/* Add Member Button */}
                 <RedirectButton
                     text="Add Member"
                     onClick={() => setOpenAdd(true)}
                     sx={{
                         background: "var(--color-primary)",
+                        padding: "7px 18px",
                         borderRadius: "8px",
-                        padding: "6px 16px",
                     }}
                 />
             </Box>
 
-            {/* Family Member Cards Grid */}
+            {/* Family Member Cards */}
             <Box
                 sx={{
                     display: "grid",
@@ -479,21 +611,24 @@ function Family_Members_View() {
                 ))}
             </Box>
 
-            {/* Add Member Modal */}
-            <Modal open={openAdd} onClose={() => setOpenAdd(false)}>
+            {/* Add Member Popup Modal */}
+            <Modal
+                open={openAdd}
+                onClose={() => setOpenAdd(false)}
+            >
                 <Box
                     sx={{
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         height: "100vh",
-                        padding: 2,
+                        p: 2,
                     }}
                 >
                     <AddMember
                         onCancel={() => setOpenAdd(false)}
                         onSubmit={(data) => {
-                            console.log("New Member Submitted:", data);
+                            console.log("New Member Added:", data);
                             setOpenAdd(false);
                         }}
                     />

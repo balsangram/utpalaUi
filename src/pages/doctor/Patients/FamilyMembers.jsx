@@ -302,10 +302,14 @@ function FamilyMembers() {
             {/* 5 Dashboard Cards */}
             <Box sx={{ mt: 5, mb: 6 }}>
                 <Stack
-                    direction={{ xs: "column", sm: "row" }}
+                    direction={{ xs: "column", sm: "row" }}   // xs = wrap vertically, sm/md/lg = row
                     spacing={3}
-                    justifyContent="center"
-                    flexWrap="wrap"
+                    flexWrap={{ xs: "wrap", sm: "nowrap", md: "nowrap" }}
+                    sx={{
+                        overflowX: { xs: "visible", sm: "auto" },
+                        whiteSpace: { sm: "nowrap" },
+                        paddingBottom: "10px",
+                    }}
                 >
                     {stats.map((stat, index) => (
                         <DashboardCard
@@ -318,6 +322,7 @@ function FamilyMembers() {
                     ))}
                 </Stack>
             </Box>
+
 
             {/* Tabs Section */}
             <Paper

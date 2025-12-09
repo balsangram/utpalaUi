@@ -1,9 +1,8 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 
 function HeadingCard({
-    category = "TREATMENT & THERAPY",
+    // category = "TREATMENT & THERAPY",
     title = "Therapy Scheduling & Pricing",
     subtitle = "Coordinate therapy offerings, assign specialists, and keep treatment costs transparent for your front-desk and billing teams.",
     breadcrumbItems = [], // 👈 Accept breadcrumb items
@@ -14,7 +13,7 @@ function HeadingCard({
             sx={{
                 width: "100%",
                 borderRadius: 4,
-                padding: 4,
+                padding: "30px",
                 background: "var(--color-bg-card)",
                 color: "var(--color-text-dark)",
                 mb: 3,
@@ -42,7 +41,7 @@ function HeadingCard({
                         {subtitle}
                     </Typography>
                 </Box>
-                
+
                 {/* Action Button */}
                 {action && (
                     <Box sx={{ ml: 3, alignSelf: "flex-start" }}>

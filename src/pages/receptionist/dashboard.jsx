@@ -10,6 +10,7 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PeopleIcon from "@mui/icons-material/People";
 import SpaIcon from "@mui/icons-material/Spa";
 import DescriptionIcon from "@mui/icons-material/Description";
+import GreetingsImg from "../../assets/greeting/receptionist.png";
 
 function Receptionist_Dashboard() {
     // Mock/Static data - will be replaced with API calls later
@@ -18,7 +19,7 @@ function Receptionist_Dashboard() {
         todayTherapySessions: 12,
         totalPatients: 245,
     });
-    
+
     // Mock recent invoice data - will be replaced with API calls later
     const [recentInvoice] = useState({
         _id: "inv-001",
@@ -54,15 +55,14 @@ function Receptionist_Dashboard() {
 
     return (
         <Box sx={{ padding: "20px" }}>
-            {/* ⭐ Breadcrumb */}
-            <Breadcrumb items={breadcrumbItems} />
 
             {/* ⭐ Greeting Banner */}
             <GreetingBanner
                 title="Good Morning"
                 name="Receptionist"
                 subtitle="Here is your dashboard overview. Manage appointments, patient flow, and payments efficiently."
-                image="/assets/receptionist-greeting.png"
+                image={GreetingsImg}
+                breadcrumbItems={breadcrumbItems}
             />
 
             {/* ⭐ DASHBOARD CARDS */}
