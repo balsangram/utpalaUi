@@ -1,152 +1,23 @@
-// import React, { useState } from "react";
-// import HeadingCard from "../../components/card/HeadingCard";
-// import TableComponent from "../../components/table/TableComponent";
-
-// // Define fields for the form modals
-// const fields = [
-//     { name: 'name', label: 'Name', type: 'text', required: true },
-//     { name: 'department', label: 'Department', type: 'text', required: true },
-//     { name: 'designation', label: 'Designation', type: 'text', required: true },
-//     { name: 'mobile', label: 'Mobile', type: 'tel', required: true },
-//     { name: 'email', label: 'Email', type: 'email', required: true },
-// ];
-
-// // Placeholder API functions - replace with actual API calls
-// const createTherapistAPI = async (data) => {
-//     // Simulate API call
-//     const newId = Date.now().toString();
-//     const newTherapist = { _id: newId, ...data };
-//     console.log('Created therapist:', newTherapist);
-//     return newTherapist;
-// };
-
-// const updateTherapistAPI = async (data, id) => {
-//     // Simulate API call
-//     console.log('Updated therapist:', { _id: id, ...data });
-//     return { _id: id, ...data };
-// };
-
-// const deleteTherapistAPI = async (id) => {
-//     // Simulate API call
-//     console.log('Deleted therapist:', id);
-// };
-
-// function Therapists() {
-//     const [rows, setRows] = useState([
-//         {
-//             _id: "1",
-//             name: "Rahul Verma",
-//             department: "Physiotherapy",
-//             designation: "Senior Therapist",
-//             mobile: "+91 9876543211",
-//             email: "rahul.verma@example.com",
-//         },
-//         {
-//             _id: "2",
-//             name: "Priya Nair",
-//             department: "Ayurvedic Therapy",
-//             designation: "Therapist",
-//             mobile: "+91 8765432199",
-//             email: "priya.nair@example.com",
-//         },
-//     ]);
-
-//     const columns = [
-//         { field: "name", header: "Name" },
-//         { field: "department", header: "Department" },
-//         { field: "designation", header: "Designation" },
-//         { field: "mobile", header: "Mobile" },
-//         { field: "email", header: "Email" },
-//     ];
-
-//     const handleCreateSubmit = async (data) => {
-//         const newTherapist = await createTherapistAPI(data);
-//         setRows(prev => [...prev, newTherapist]);
-//     };
-
-//     const handleEditSubmit = async (data, row) => {
-//         const updatedTherapist = await updateTherapistAPI(data, row._id);
-//         setRows(prev => prev.map(r => r._id === row._id ? updatedTherapist : r));
-//     };
-
-//     const handleDelete = (id) => {
-//         if (window.confirm(`Are you sure you want to delete therapist ${id}?`)) {
-//             deleteTherapistAPI(id);
-//             setRows(prev => prev.filter(r => r._id !== id));
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <HeadingCard
-//                 title="Therapists"
-//                 subtitle="View and manage all therapy specialists across different departments."
-//                 breadcrumbItems={[
-//                     { label: "Admin", url: "/admin/dashboard" },
-//                     { label: "Therapists" }
-//                 ]}
-//             />
-
-//             <TableComponent
-//                 title="Therapists List"
-//                 columns={columns}
-//                 rows={rows}
-//                 // For modals: pass formFields and submit handlers
-//                 formFields={fields}
-//                 onCreateSubmit={handleCreateSubmit}
-//                 onEditSubmit={handleEditSubmit}
-//                 showView={true} // Opens modal with ViewCard
-//                 // viewPath removed - modal handles view
-//                 showEdit={true}
-//                 showDelete={true}
-//                 onDelete={handleDelete}
-//             />
-//         </div>
-//     );
-// }
-
-// export default Therapists;
-
 import React, { useState } from "react";
 import HeadingCard from "../../components/card/HeadingCard";
 import TableComponent from "../../components/table/TableComponent";
 
+import { Eye, Edit, Trash2 } from "lucide-react";
+import CardBorder from "../../components/card/CardBorder";
+import Search from "../../components/search/Search";
+import RedirectButton from "../../components/buttons/RedirectButton";
+import { useNavigate } from "react-router-dom";
+import ExportDataButton from "../../components/buttons/ExportDataButton";
+
 // ===== FORM FIELDS =====
-const fields = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'department', label: 'Department', type: 'text', required: true },
-    { name: 'designation', label: 'Designation', type: 'text', required: true },
-    { name: 'mobile', label: 'Mobile', type: 'tel', required: true },
-    { name: 'email', label: 'Email', type: 'email', required: true },
-
-    // ⭐ NEW — STATUS field
-    {
-        name: "status",
-        label: "Status",
-        type: "select",
-        required: true,
-        options: [
-            { value: "Active", label: "Active" },
-            { value: "Inactive", label: "Inactive" }
-        ]
-    }
-];
-
-// Placeholder API functions — replace with real API
-const createTherapistAPI = async (data) => {
-    const newId = Date.now().toString();
-    return { _id: newId, ...data };
-};
-
-const updateTherapistAPI = async (data, id) => {
-    return { _id: id, ...data };
-};
 
 const deleteTherapistAPI = async (id) => {
     console.log("Deleted therapist:", id);
 };
 
 function Therapists() {
+    const navigate = useNavigate();
+
     const [rows, setRows] = useState([
         {
             _id: "1",
@@ -155,7 +26,7 @@ function Therapists() {
             designation: "Senior Therapist",
             mobile: "+91 9876543211",
             email: "rahul.verma@example.com",
-            status: "Active",   // ⭐ NEW
+            status: "Active",
         },
         {
             _id: "2",
@@ -164,9 +35,18 @@ function Therapists() {
             designation: "Therapist",
             mobile: "+91 8765432199",
             email: "priya.nair@example.com",
-            status: "Inactive", // ⭐ NEW
+            status: "Inactive",
         },
     ]);
+
+    const [searchText, setSearchText] = useState("");
+
+    // FILTERED ROWS
+    const filteredRows = rows.filter(r =>
+        r.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        r.department.toLowerCase().includes(searchText.toLowerCase()) ||
+        r.designation.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     // ===== TABLE COLUMNS =====
     const columns = [
@@ -175,28 +55,40 @@ function Therapists() {
         { field: "designation", header: "Designation" },
         { field: "mobile", header: "Mobile" },
         { field: "email", header: "Email" },
-        { field: "status", header: "Status" }, // ⭐ Show status badge
+        { field: "status", header: "Status" },
     ];
 
-    const handleCreateSubmit = async (data) => {
-        const newTherapist = await createTherapistAPI(data);
-        setRows(prev => [...prev, newTherapist]);
-    };
-
-    const handleEditSubmit = async (data, row) => {
-        const updatedTherapist = await updateTherapistAPI(data, row._id);
-        setRows(prev => prev.map(r => r._id === row._id ? updatedTherapist : r));
-    };
-
     const handleDelete = (id) => {
-        if (window.confirm(`Are you sure you want to delete therapist ${id}?`)) {
+        if (window.confirm("Are you sure you want to delete this therapist?")) {
             deleteTherapistAPI(id);
             setRows(prev => prev.filter(r => r._id !== id));
         }
     };
 
+    // ACTION BUTTONS
+    const actions = [
+        {
+            label: "View",
+            icon: <Eye />,
+            color: "var(--color-icon-3)",
+            onClick: (row) => navigate(`/admin/therapists/view/${row._id}`)
+        },
+        {
+            label: "Edit",
+            icon: <Edit />,
+            color: "var(--color-icon-2)",
+            onClick: (row) => navigate(`/admin/therapists/edit/${row._id}`)
+        },
+        {
+            label: "Delete",
+            icon: <Trash2 />,
+            color: "var(--color-icon-1)",
+            onClick: (row) => handleDelete(row._id)
+        }
+    ];
+
     return (
-        <div>
+        <div className="space-y-6 p-6">
             <HeadingCard
                 title="Therapists"
                 subtitle="View and manage all therapy specialists across different departments."
@@ -206,23 +98,30 @@ function Therapists() {
                 ]}
             />
 
+            <CardBorder justify="between" align="center" wrap={true} padding="2rem">
+                <div style={{ flex: 1, marginRight: "1rem" }}>
+                    <Search
+                        value={searchText}
+                        onChange={setSearchText}
+                        style={{ flex: 1 }}
+                    />
+                </div>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <ExportDataButton
+                        rows={rows}
+                        columns={columns}
+                        fileName="receptionists.xlsx"
+                    />
+                    <RedirectButton text="Create" link="/admin/therapists/add" />
+                </div>
+            </CardBorder>
+
             <TableComponent
-                title="Therapists List"
                 columns={columns}
-                rows={rows}
-
-                formFields={fields}
-                onCreateSubmit={handleCreateSubmit}
-                onEditSubmit={handleEditSubmit}
-
-                showView={true}
-                showEdit={true}
-                showDelete={true}
-
-                onDelete={handleDelete}
-
-                showStatusBadge={true}   // ⭐ Uses your theme colors
-                statusField="status"     // ⭐ Uses correct status field
+                rows={filteredRows}
+                actions={actions}
+                showStatusBadge={true}
+                statusField="status"
             />
         </div>
     );

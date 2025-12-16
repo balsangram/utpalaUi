@@ -281,7 +281,7 @@ function Therapist_Dashboard() {
             </Box> */}
             <GreetingBanner
                 // title="Good Morning"
-                name="Pharmacist"
+                name="Therapist"
                 subtitle="Review prescriptions, manage verification, and dispense medicines efficiently."
                 image={GreetingsImg}
                 breadcrumbItems={breadcrumbItems}

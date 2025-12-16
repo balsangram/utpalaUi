@@ -54,8 +54,8 @@ export const sidebarMenus = {
             label: "Therapy",
             icon: <MedicalServicesIcon style={{ color: "var(--color-icons)" }} />,
             children: [
-                { key: "therapy_view", label: "Therapies", to: "/therapist/view" },
-                { key: "therapy_assign", label: "Assignments", to: "/therapist/assignments/view" },
+                { key: "therapy_view", label: "Therapies", to: "/admin/treatment-therapy" },
+                { key: "therapy_assign", label: "Assignments", to: "/admin/treatment-assignments" },
             ],
         },
 
@@ -64,8 +64,8 @@ export const sidebarMenus = {
             label: "Consultation",
             icon: <ReceiptLongIcon style={{ color: "var(--color-icons)" }} />,
             children: [
-                { key: "slot", label: "Slot", to: "/consultation/slot/view" },
-                { key: "fees", label: "Consultation", to: "/consultation/view" },
+                { key: "slot", label: "Slot", to: "/admin/consultation/slot/view" },
+                { key: "fees", label: "Consultation", to: "/admin/consultation/view" },
             ],
         },
 
@@ -74,7 +74,7 @@ export const sidebarMenus = {
             label: "Inventory",
             icon: <Inventory2Icon style={{ color: "var(--color-icons)" }} />,
             children: [
-                { key: "inventory_view", label: "Inventory", to: "/inventory/view" },
+                { key: "inventory_view", label: "Inventory", to: "/admin/inventory/view" },
             ],
         },
 
@@ -83,18 +83,18 @@ export const sidebarMenus = {
             label: "Food Charges",
             icon: <RestaurantMenuIcon style={{ color: "var(--color-icons)" }} />,
             children: [
-                { key: "food_view", label: "Food Charges", to: "/foodcharges/view" },
+                { key: "food_view", label: "Food Charges", to: "/admin/foodcharges/view" },
             ],
         },
 
         {
-            key: "analytics",
-            label: "Analytics",
+            key: "Report",
+            label: "Reports",
             icon: <AnalyticsIcon style={{ color: "var(--color-icons)" }} />,
             children: [
-                { key: "admissions", label: "Admission List", to: "/analytics/admissions" },
-                { key: "discharge", label: "Discharge Report", to: "/analytics/discharges" },
-                { key: "records", label: "Patient Records", to: "/analytics/patient-records" },
+                { key: "admissions", label: "Admission List", to: "/admin/analytics/admissions" },
+                { key: "discharge", label: "Discharge Report", to: "/admin/analytics/discharges" },
+                { key: "records", label: "Patient Records", to: "/admin/analytics/patient-records" },
             ],
         },
     ],

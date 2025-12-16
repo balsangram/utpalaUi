@@ -92,9 +92,11 @@ function ResponsiveAppBar() {
 
   };
 
+  const logoLink = () => {
+    const userRole = role?.toLowerCase() || localStorage.getItem("role")?.toLowerCase();
+    navigate(`/${userRole}/dashboard`);
 
-  // Hover state for UTPALA text
-  // const [utpalaHovered, setUtpalaHovered] = React.useState(false);
+  }
 
   return (
     <AppBar
@@ -128,7 +130,8 @@ function ResponsiveAppBar() {
                 size="large"
                 edge="start"
                 color="inherit"
-                onClick={() => navigate("/")}   // ⭐ go to home
+                // onClick={() => navigate(`/${userRole}/dashboard`)}   // ⭐ go to home
+                onClick={logoLink}   // ⭐ go to home
                 sx={{
                   p: 1,
                   borderRadius: 2,

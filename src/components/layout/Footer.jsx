@@ -3,7 +3,7 @@ function Footer() {
         <div
             className="text-center p-1"
             style={{
-                backgroundColor: "var(--color-background)",
+                backgroundColor: "var(--color-bg-a)",
                 color: "var(--color-text-dark)",
                 fontSize: "0.9rem",
                 marginTop: "auto",

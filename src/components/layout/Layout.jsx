@@ -49,7 +49,7 @@ function Layout() {
                     display: "flex",
                     width: "100%",
                     minHeight: "calc(100vh - 60px)", // prevent footer overlap
-                    background: "var(--color-background)",
+                    background: "var(--color-bg-a)",
                     position: "relative",
                 }}
             >
@@ -73,14 +73,14 @@ function Layout() {
                 {/* SIDEBAR */}
                 <div
                     style={{
-                        width: isMobile 
+                        width: isMobile
                             ? (sidebarOpen ? "250px" : "0")
                             : (sidebarOpen ? "250px" : "60px"),
-                        minWidth: isMobile 
+                        minWidth: isMobile
                             ? (sidebarOpen ? "250px" : "0")
                             : (sidebarOpen ? "250px" : "60px"),
                         transition: "width 0.3s ease, transform 0.3s ease",
-                        backgroundColor: "var(--color-background)",
+                        backgroundColor: "var(--color-bg-a)",
                         overflow: "hidden",
                         height: isMobile ? "calc(100vh - 60px)" : "auto",
                         position: isMobile ? "fixed" : "relative",
@@ -90,8 +90,8 @@ function Layout() {
                         boxShadow: isMobile && sidebarOpen ? "2px 0 8px rgba(0,0,0,0.15)" : "none",
                     }}
                 >
-                    <SidebarLoader 
-                        isOpen={sidebarOpen} 
+                    <SidebarLoader
+                        isOpen={sidebarOpen}
                         isMobile={isMobile}
                         onClose={() => dispatch(toggleSidebar())}
                     />

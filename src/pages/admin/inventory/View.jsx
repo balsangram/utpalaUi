@@ -1,10 +1,8 @@
-
-
 import React, { useState, useMemo } from "react";
 import {
     Box,
     Stack,
-    Button,                    // ← THIS WAS MISSING!
+    Button,
     Dialog,
     DialogTitle,
     DialogContent,
@@ -13,10 +11,21 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DescriptionIcon from "@mui/icons-material/Description";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import BlockIcon from "@mui/icons-material/Block";
 import { X } from "lucide-react";
+import { ListChecks } from 'lucide-react';
 
 import HeadingCard from "../../../components/card/HeadingCard";
 import TableComponent from "../../../components/table/TableComponent";
+import DashboardCard from "../../../components/card/DashboardCard";
+import CardBorder from "../../../components/card/CardBorder";
+import Search from "../../../components/search/Search";
+import ExportDataButton from "../../../components/buttons/ExportDataButton";
+import RedirectButton from "../../../components/buttons/RedirectButton";
 import { useNavigate } from "react-router-dom";
 
 const fields = [
@@ -78,15 +87,37 @@ function Inventory_View() {
         },
     ]);
 
+    const [searchText, setSearchText] = useState("");
     const [filter, setFilter] = useState("All Items");
     const [openBatchLog, setOpenBatchLog] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const navigate = useNavigate();
+
+    // Combined filtering: search + type filter
     const filteredRows = useMemo(() => {
-        return filter === "All Items"
-            ? rows
-            : rows.filter(item => item.type === filter);
-    }, [rows, filter]);
+        return rows.filter((row) => {
+            const searchMatch = searchText === '' ||
+                row.itemName.toLowerCase().includes(searchText.toLowerCase()) ||
+                row.stockId.toLowerCase().includes(searchText.toLowerCase()) ||
+                row.category.toLowerCase().includes(searchText.toLowerCase()) ||
+                row.type.toLowerCase().includes(searchText.toLowerCase()) ||
+                row.status.toLowerCase().includes(searchText.toLowerCase()) ||
+                row.quantity.toString().includes(searchText);
+
+            const typeMatch = filter === "All Items" || row.type === filter;
+
+            return searchMatch && typeMatch;
+        });
+    }, [rows, searchText, filter]);
+
+    // Live Stats
+    const stats = useMemo(() => {
+        const total = rows.length;
+        const lowStock = rows.filter(r => r.quantity < 100).length; // Assuming <100 is low stock
+        const outOfStock = rows.filter(r => r.quantity === 0).length;
+
+        return { total, lowStock, outOfStock };
+    }, [rows]);
 
     const columns = [
         { field: "stockId", header: "Stock ID" },
@@ -97,19 +128,37 @@ function Inventory_View() {
         { field: "status", header: "Status" },
     ];
 
+    const actions = [
+        {
+            icon: <ListChecks fontSize="small" />,
+            color: "var(--color-primary)",
+            label: "View",
+            onClick: (row) => {
+                navigate(`/admin/inventory/batch-log/${row._id}`);
+            },
+        },
+        {
+            icon: <DeleteIcon fontSize="small" />,
+            color: "#f44336",
+            label: "Delete",
+            onClick: (row) => {
+                navigate(`/admin/inventory/delete/${row._id}`);
+            },
+        },
+    ];
+
     const customActions = [
         {
             icon: <DescriptionIcon fontSize="small" />,
-            color: "#27AE60", // or "var(--color-primary)"
+            color: "#27AE60",
             onClick: (row) => {
-                // Redirect to Batch Log page with stockId
-                navigate(`/inventory/batch-log/${row.stockId}`);
-                // Alternative: use _id if you prefer
-                // navigate(`/admin/inventory/batch-log/${row._id}`);
+                setSelectedItem(row);
+                setOpenBatchLog(true);
             },
             tooltip: "View Batch Log",
         },
     ];
+
     return (
         <Box>
             <HeadingCard
@@ -120,6 +169,64 @@ function Inventory_View() {
                     { label: "Inventory" }
                 ]}
             />
+
+            {/* Stats Cards */}
+            <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={3}
+                my={4}
+                justifyContent="flex-start"
+                sx={{
+                    flexWrap: { xs: "wrap", sm: "nowrap" },
+                }}
+            >
+                <DashboardCard
+                    title="Total Items"
+                    count={stats.total}
+                    icon={LocalPharmacyIcon}
+                />
+                <DashboardCard
+                    title="Low Stock"
+                    count={stats.lowStock}
+                    icon={WarningAmberIcon}
+                />
+                <DashboardCard
+                    title="Out of Stock"
+                    count={stats.outOfStock}
+                    icon={BlockIcon}
+                />
+            </Stack>
+
+            {/* SEARCH + EXPORT + CREATE */}
+            <CardBorder
+                justify="between"
+                align="center"
+                wrap={true}
+                padding="2rem"
+                style={{
+                    width: "100%",
+                    marginBottom: "2rem",
+                }}
+            >
+                {/* LEFT SIDE — Search */}
+                <div style={{ flex: 1, marginRight: "1rem" }}>
+                    <Search
+                        value={searchText}
+                        onChange={(val) => setSearchText(val)}
+                        style={{ width: "100%" }}
+                    />
+                </div>
+
+                {/* RIGHT SIDE — Export + Create Buttons */}
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <ExportDataButton
+                        rows={filteredRows}
+                        columns={columns}
+                        fileName="inventory.xlsx"
+                    />
+                    <RedirectButton text="Add Item" link="/admin/inventory/add" />
+                </div>
+            </CardBorder>
 
             {/* Filter Buttons */}
             <Stack direction="row" spacing={2} mb={3}>
@@ -151,13 +258,16 @@ function Inventory_View() {
                 title="Inventory List"
                 columns={columns}
                 rows={filteredRows}
+                actions={actions}
                 formFields={fields}
-                showView={true}
+                showView={false}
                 showEdit={false}
                 showDelete={false}
                 showAddButton={false}
-                showExportButton={true}
+                showExportButton={false}
                 customActions={customActions}
+                showStatusBadge={true}
+                statusField="status"
             />
 
             {/* Batch Log Modal */}

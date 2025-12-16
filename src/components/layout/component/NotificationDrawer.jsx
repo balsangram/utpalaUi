@@ -76,8 +76,8 @@ function NotificationDrawer({ open, onClose }) {
                     borderRadius: '12px 0 0 12px',
                     overflow: 'hidden',
                     boxShadow: '-4px 0 20px rgba(0,0,0,0.12)',
-                    marginTop: '5%',
-                    marginRight: '1%',
+                    marginTop: '5rem',
+                    marginRight: '.9rem',
                 },
             }}
         >

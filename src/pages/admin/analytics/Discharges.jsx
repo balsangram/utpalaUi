@@ -1,17 +1,16 @@
 
-
 // import React, { useState } from "react";
 // import HeadingCard from "../../../components/card/HeadingCard";
 // import TableComponent from "../../../components/table/TableComponent";
 
-// // Define fields for the form modals
+// // Form fields (used only for View modal)
 // const fields = [
 //     { name: 'uhid', label: 'UHID / Patient ID', type: 'text', required: true },
 //     { name: 'patientName', label: 'Patient Name', type: 'text', required: true },
 //     { name: 'doctor', label: 'Doctor', type: 'text', required: true },
 //     { name: 'admissionDate', label: 'Admission Date', type: 'date', required: true },
 //     { name: 'dischargeDate', label: 'Discharge Date', type: 'date', required: true },
-//     { name: 'amount', label: 'Final Amount (₹)', type: 'text', required: true },
+//     { name: 'amount', label: 'Final Amount (₹)', type: 'number', required: true },
 //     {
 //         name: 'status',
 //         label: 'Status',
@@ -25,26 +24,6 @@
 //     },
 // ];
 
-// // Placeholder API functions - replace with actual API calls
-// const createDischargeAPI = async (data) => {
-//     // Simulate API call
-//     const newId = Date.now().toString();
-//     const newDischarge = { _id: newId, ...data };
-//     console.log('Created discharge record:', newDischarge);
-//     return newDischarge;
-// };
-
-// const updateDischargeAPI = async (data, id) => {
-//     // Simulate API call
-//     console.log('Updated discharge record:', { _id: id, ...data });
-//     return { _id: id, ...data };
-// };
-
-// const deleteDischargeAPI = async (id) => {
-//     // Simulate API call
-//     console.log('Deleted discharge record:', id);
-// };
-
 // function Discharges() {
 //     const [rows, setRows] = useState([
 //         {
@@ -54,7 +33,7 @@
 //             doctor: "Dr. Sharma",
 //             admissionDate: "2025-01-12",
 //             dischargeDate: "2025-01-18",
-//             amount: "₹ 12,500",
+//             amount: 12500,
 //             status: "Completed",
 //         },
 //         {
@@ -64,8 +43,18 @@
 //             doctor: "Dr. Rao",
 //             admissionDate: "2025-01-10",
 //             dischargeDate: "2025-01-15",
-//             amount: "₹ 9,200",
+//             amount: 9200,
 //             status: "Completed",
+//         },
+//         {
+//             _id: "3",
+//             uhid: "UHID-1010",
+//             patientName: "Rohan Das",
+//             doctor: "Dr. Patel",
+//             admissionDate: "2025-01-20",
+//             dischargeDate: "2025-01-25",
+//             amount: 18500,
+//             status: "Pending",
 //         },
 //     ]);
 
@@ -75,26 +64,13 @@
 //         { field: "doctor", header: "Doctor" },
 //         { field: "admissionDate", header: "Admission Date" },
 //         { field: "dischargeDate", header: "Discharge Date" },
-//         { field: "amount", header: "Final Amount (₹)" },
-//         { field: "status", header: "Status" },
+//         {
+//             field: "amount",
+//             header: "Final Amount (₹)",
+//             render: (row) => `₹${row.amount.toLocaleString('en-IN')}`,
+//         },
+//         { field: "status", header: "Status" }, // Auto shows badge!
 //     ];
-
-//     const handleCreateSubmit = async (data) => {
-//         const newDischarge = await createDischargeAPI(data);
-//         setRows(prev => [...prev, newDischarge]);
-//     };
-
-//     const handleEditSubmit = async (data, row) => {
-//         const updatedDischarge = await updateDischargeAPI(data, row._id);
-//         setRows(prev => prev.map(r => r._id === row._id ? updatedDischarge : r));
-//     };
-
-//     const handleDelete = (id) => {
-//         if (window.confirm(`Are you sure you want to delete discharge record ${id}?`)) {
-//             deleteDischargeAPI(id);
-//             setRows(prev => prev.filter(r => r._id !== id));
-//         }
-//     };
 
 //     return (
 //         <div>
@@ -107,20 +83,20 @@
 //                 ]}
 //             />
 
-//             {/* Table */}
 //             <TableComponent
-//                 title="Discharge List"
+//                 title="Discharge Records List"
 //                 columns={columns}
 //                 rows={rows}
-//                 // For modals: pass formFields and submit handlers
-//                 formFields={fields}
-//                 onCreateSubmit={handleCreateSubmit}
-//                 onEditSubmit={handleEditSubmit}
-//                 showView={true} // Opens modal with ViewCard
-//                 // viewPath removed - modal handles view
-//                 showEdit={true}
-//                 showDelete={true}
-//                 onDelete={handleDelete}
+//                 formFields={fields} // For View modal
+
+//                 // Only show what you want
+//                 showView={true}           // View modal ON
+//                 showEdit={false}          // Edit button OFF
+//                 showDelete={false}        // Delete button OFF
+//                 showAddButton={false}  // Create button OFF
+//                 showExportButton={true} // Export Excel ON
+
+//             // No need to pass handlers since no edit/delete/create
 //             />
 //         </div>
 //     );
@@ -131,6 +107,9 @@
 import React, { useState } from "react";
 import HeadingCard from "../../../components/card/HeadingCard";
 import TableComponent from "../../../components/table/TableComponent";
+import CardBorder from "../../../components/card/CardBorder";
+import Search from "../../../components/search/Search";
+import ExportDataButton from "../../../components/buttons/ExportDataButton";
 
 // Form fields (used only for View modal)
 const fields = [
@@ -181,11 +160,13 @@ function Discharges() {
             patientName: "Rohan Das",
             doctor: "Dr. Patel",
             admissionDate: "2025-01-20",
-            dischargeDate: "2025-01-25",
+            dischargeDate: null, // Pending, no discharge date
             amount: 18500,
             status: "Pending",
         },
     ]);
+
+    const [searchText, setSearchText] = useState("");
 
     const columns = [
         { field: "uhid", header: "UHID / Patient ID" },
@@ -201,8 +182,14 @@ function Discharges() {
         { field: "status", header: "Status" }, // Auto shows badge!
     ];
 
+    // Filter rows based on search text (search in patientName and uhid)
+    const filteredRows = rows.filter(row =>
+        row.patientName.toLowerCase().includes(searchText.toLowerCase()) ||
+        row.uhid.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
-        <div>
+        <div className="space-y-6 p-6">
             <HeadingCard
                 title="Discharge Records"
                 subtitle="View and manage patient discharge summaries, track billing details, and ensure accurate hospital record keeping."
@@ -212,18 +199,47 @@ function Discharges() {
                 ]}
             />
 
+            {/* SEARCH + EXPORT */}
+            <CardBorder
+                justify="between"
+                align="center"
+                wrap={true}
+                padding="2rem"
+                style={{ width: "100%" }}
+            >
+                {/* LEFT SIDE — Search */}
+                <div style={{ flex: 1, marginRight: "1rem" }}>
+                    <Search
+                        value={searchText}
+                        onChange={(val) => setSearchText(val)}
+                        style={{ width: "100%" }}
+                    />
+                </div>
+
+                {/* RIGHT SIDE — Export Button */}
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <ExportDataButton
+                        rows={filteredRows}
+                        columns={columns}
+                        fileName="discharges.xlsx"
+                    />
+                </div>
+            </CardBorder>
+
             <TableComponent
                 title="Discharge Records List"
                 columns={columns}
-                rows={rows}
+                rows={filteredRows}
                 formFields={fields} // For View modal
+                showStatusBadge={true}
+                statusField="status"
 
                 // Only show what you want
                 showView={true}           // View modal ON
                 showEdit={false}          // Edit button OFF
                 showDelete={false}        // Delete button OFF
-                showAddButton={false}  // Create button OFF
-                showExportButton={true} // Export Excel ON
+                showAddButton={false}     // Create button OFF
+                showExportButton={true}   // Export Excel ON (but handled above)
 
             // No need to pass handlers since no edit/delete/create
             />

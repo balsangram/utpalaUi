@@ -37,7 +37,7 @@ function Breadcrumb({
                         ) : (
                             <span
                                 style={{
-                                    color: "var(--color-text-light)",
+                                    color: "var(--color-text)",
                                     fontWeight: 500,
                                 }}
                             >

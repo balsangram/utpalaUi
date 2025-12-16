@@ -2,36 +2,16 @@ import React, { useState } from "react";
 import HeadingCard from "../../components/card/HeadingCard";
 import TableComponent from "../../components/table/TableComponent";
 
-// Define fields for the form modals
-const fields = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'department', label: 'Department', type: 'text', required: true },
-    { name: 'designation', label: 'Designation', type: 'text', required: true },
-    { name: 'mobile', label: 'Mobile', type: 'tel', required: true },
-    { name: 'email', label: 'Email', type: 'email', required: true },
-];
-
-// Placeholder API functions - replace with actual API calls
-const createNurseAPI = async (data) => {
-    // Simulate API call
-    const newId = Date.now().toString();
-    const newNurse = { _id: newId, ...data };
-    console.log('Created nurse:', newNurse);
-    return newNurse;
-};
-
-const updateNurseAPI = async (data, id) => {
-    // Simulate API call
-    console.log('Updated nurse:', { _id: id, ...data });
-    return { _id: id, ...data };
-};
-
-const deleteNurseAPI = async (id) => {
-    // Simulate API call
-    console.log('Deleted nurse:', id);
-};
+import { useNavigate } from "react-router-dom";
+import CardBorder from "../../components/card/CardBorder";
+import Search from "../../components/search/Search";
+import RedirectButton from "../../components/buttons/RedirectButton";
+import { Eye, Edit, Trash2 } from "lucide-react";
+import ExportDataButton from "../../components/buttons/ExportDataButton";
 
 function Nursing() {
+    const navigate = useNavigate();
+
     const [rows, setRows] = useState([
         {
             _id: "1",
@@ -40,7 +20,7 @@ function Nursing() {
             designation: "Senior Nurse",
             mobile: "+91 9876501234",
             email: "priya.nair@hospital.com",
-            status: "Active",   // ⭐ Add
+            status: "Active",
         },
         {
             _id: "2",
@@ -49,7 +29,7 @@ function Nursing() {
             designation: "Staff Nurse",
             mobile: "+91 9823456780",
             email: "rohan.verma@hospital.com",
-            status: "Inactive", // ⭐ Add
+            status: "Inactive",
         },
         {
             _id: "3",
@@ -58,7 +38,7 @@ function Nursing() {
             designation: "Registered Nurse",
             mobile: "+91 9988776655",
             email: "sangeeta.patil@hospital.com",
-            status: "Active",   // ⭐ Add
+            status: "Active",
         },
         {
             _id: "4",
@@ -67,7 +47,7 @@ function Nursing() {
             designation: "Nurse Supervisor",
             mobile: "+91 9090908080",
             email: "meena.rao@hospital.com",
-            status: "Inactive", // ⭐ Add
+            status: "Inactive",
         },
         {
             _id: "5",
@@ -76,10 +56,9 @@ function Nursing() {
             designation: "Operating Room Nurse",
             mobile: "+91 9811223344",
             email: "arun.das@hospital.com",
-            status: "Active",   // ⭐ Add
+            status: "Active",
         },
     ]);
-
 
     const columns = [
         { field: "name", header: "Name" },
@@ -90,25 +69,36 @@ function Nursing() {
         { field: "status", header: "Status" },
     ];
 
-    const handleCreateSubmit = async (data) => {
-        const newNurse = await createNurseAPI(data);
-        setRows(prev => [...prev, newNurse]);
-    };
-
-    const handleEditSubmit = async (data, row) => {
-        const updatedNurse = await updateNurseAPI(data, row._id);
-        setRows(prev => prev.map(r => r._id === row._id ? updatedNurse : r));
-    };
-
     const handleDelete = (id) => {
-        if (window.confirm(`Are you sure you want to delete nurse ${id}?`)) {
-            deleteNurseAPI(id);
-            setRows(prev => prev.filter(r => r._id !== id));
+        if (window.confirm("Are you sure you want to delete this nurse?")) {
+            setRows((prev) => prev.filter((r) => r._id !== id));
         }
     };
 
+    // ACTION BUTTONS
+    const actions = [
+        {
+            label: "View",
+            icon: <Eye />,
+            color: "var(--color-icon-3)",
+            onClick: (row) => navigate(`/admin/nursing/view/${row._id}`)
+        },
+        {
+            label: "Edit",
+            icon: <Edit />,
+            color: "var(--color-icon-2)",
+            onClick: (row) => navigate(`/admin/nursing/edit/${row._id}`)
+        },
+        {
+            label: "Delete",
+            icon: <Trash2 />,
+            color: "var(--color-icon-1)",
+            onClick: (row) => handleDelete(row._id)
+        }
+    ];
+    const [searchText, setSearchText] = useState("");
     return (
-        <div>
+        <div className="space-y-6 p-6">
             <HeadingCard
                 title="Nursing Staff"
                 subtitle="View and manage all nurses working across different departments."
@@ -118,20 +108,29 @@ function Nursing() {
                 ]}
             />
 
+            <CardBorder justify="between" align="center" wrap={true} padding="2rem">
+                <div style={{ flex: 1, marginRight: "1rem" }}>
+                    <Search
+                        value={searchText}
+                        onChange={(val) => setSearchText(val)}
+                        style={{ flex: 1 }}
+                    />
+                </div>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <ExportDataButton
+                        rows={rows}
+                        columns={columns}
+                        fileName="nursing.xlsx"
+                    />
+                    <RedirectButton text="create" link="/admin/nursing/add" />
+                </div>
+            </CardBorder>
+
             <TableComponent
-                title="Nursing Staff List"
                 columns={columns}
                 rows={rows}
-                // For modals: pass formFields and submit handlers
-                formFields={fields}
-                onCreateSubmit={handleCreateSubmit}
-                onEditSubmit={handleEditSubmit}
-                showView={true} // Opens modal with ViewCard
-                // viewPath removed - modal handles view
-                showEdit={true}
-                showDelete={true}
-                onDelete={handleDelete}
-                showStatusBadge={true}    // OPTIONAL: forces status badge
+                actions={actions}
+                showStatusBadge={true}
                 statusField="status"
             />
         </div>

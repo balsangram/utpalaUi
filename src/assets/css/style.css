@@ -70,7 +70,7 @@ body {
   background: linear-gradient(0deg,
       rgba(51, 53, 72, 0.05),
       rgba(51, 53, 72, 0.05)),
-    var(--color-background);
+    var(--color-bg-a);
   overflow-x: hidden;
   height: 100%;
 }
