@@ -259,7 +259,8 @@ function ResponsiveAppBar() {
                     width: 40,
                     height: 40,
                     transition: "all 0.2s ease",
-                    bgcolor: "var(--color-primary)",
+                    border: "1px solid var(--color-light)",
+                    bgcolor: "var(--color-bg-profile)",
                   }}
                 />
               </IconButton>

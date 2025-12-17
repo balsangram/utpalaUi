@@ -6,7 +6,7 @@ function CardBorder({
     height = "auto",
     padding = "1rem",
     bg = "var(--color-bg-card)",
-    border = "1px solid var(--color-border)",
+    // border = "1px solid var(--color-border)",
     radius = "12px",
     shadow = "0px 4px 12px rgba(0,0,0,0.08)",
 
@@ -40,7 +40,7 @@ function CardBorder({
                 height,
                 padding,
                 backgroundColor: bg,
-                border,
+                // border,
                 borderRadius: radius,
                 boxShadow: shadow,
 

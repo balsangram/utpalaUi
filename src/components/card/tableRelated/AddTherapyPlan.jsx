@@ -1,9 +1,223 @@
-import React, { useState } from 'react';
+
+// import React, { useState } from "react";
+// import {
+//     Dialog,
+//     DialogTitle,
+//     DialogContent,
+//     DialogActions,
+//     TextField,
+//     Select,
+//     MenuItem,
+//     FormControl,
+//     InputLabel,
+//     Button,
+//     Box,
+//     Typography,
+//     IconButton,
+// } from "@mui/material";
+// import CloseIcon from "@mui/icons-material/Close";
+
+// function AddTherapyPlan({ open, onClose, patientName, onAdd }) {
+//     const [formData, setFormData] = useState({
+//         treatmentName: "",
+//         daysOfTreatment: "",
+//         treatmentTimeline: "",
+//         specialInstructions: "",
+//     });
+
+//     const handleChange = (e) => {
+//         const { name, value } = e.target;
+//         setFormData((prev) => ({ ...prev, [name]: value }));
+//     };
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         onAdd?.(formData);
+//         onClose(); // close after submit
+//     };
+
+//     const timelines = ["Morning", "Afternoon", "Evening", "Full Day"];
+
+//     return (
+//         <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+//             {/* ================= HEADER ================= */}
+//             <DialogTitle
+//                 sx={{
+//                     backgroundColor: "var(--color-bg-header)",
+//                     color: "var(--color-text-light)",
+//                     fontWeight: 700,
+//                     display: "flex",
+//                     alignItems: "center",
+//                     justifyContent: "space-between",
+//                     pr: 1,
+//                 }}
+//             >
+//                 Add Therapy Plan
+
+//                 {/* ❌ CLOSE ICON */}
+//                 <IconButton
+//                     onClick={onClose}
+//                     sx={{
+//                         color: "var(--color-text-light)",
+//                         "&:hover": {
+//                             backgroundColor: "var(--color-bg-side-bar-hover)",
+//                         },
+//                     }}
+//                 >
+//                     <CloseIcon />
+//                 </IconButton>
+//             </DialogTitle>
+
+//             <form onSubmit={handleSubmit}>
+//                 {/* ================= CONTENT ================= */}
+//                 <DialogContent
+//                     sx={{
+//                         backgroundColor: "var(--color-bg-a)",
+//                         p: 3,
+//                     }}
+//                 >
+//                     <Typography
+//                         variant="body2"
+//                         sx={{
+//                             color: "var(--color-success)",
+//                             mb: 2,
+//                             fontWeight: 600,
+//                         }}
+//                     >
+//                         Adding therapy for {patientName}
+//                     </Typography>
+
+//                     {/* Treatment Name */}
+//                     <StyledTextField
+//                         label="Treatment Name"
+//                         name="treatmentName"
+//                         value={formData.treatmentName}
+//                         onChange={handleChange}
+//                         placeholder="Enter treatment name..."
+//                     />
+
+//                     <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+//                         {/* Days */}
+//                         <StyledTextField
+//                             label="Days of Treatment"
+//                             name="daysOfTreatment"
+//                             type="number"
+//                             value={formData.daysOfTreatment}
+//                             onChange={handleChange}
+//                         />
+
+//                         {/* Timeline */}
+//                         <FormControl fullWidth required>
+//                             <InputLabel sx={{ color: "var(--color-text)" }}>
+//                                 Treatment Timeline
+//                             </InputLabel>
+//                             <Select
+//                                 name="treatmentTimeline"
+//                                 value={formData.treatmentTimeline}
+//                                 onChange={handleChange}
+//                                 label="Treatment Timeline"
+//                                 sx={{
+//                                     backgroundColor: "var(--color-bg-input)",
+//                                     borderRadius: "10px",
+//                                     "& .MuiOutlinedInput-notchedOutline": {
+//                                         borderColor: "var(--color-border)",
+//                                     },
+//                                     "&:hover .MuiOutlinedInput-notchedOutline": {
+//                                         borderColor: "var(--color-text-b)",
+//                                     },
+//                                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+//                                         borderColor: "var(--color-text-dark-b)",
+//                                         borderWidth: 2,
+//                                     },
+//                                 }}
+//                             >
+//                                 <MenuItem value="">Select timeline...</MenuItem>
+//                                 {timelines.map((t) => (
+//                                     <MenuItem key={t} value={t}>
+//                                         {t}
+//                                     </MenuItem>
+//                                 ))}
+//                             </Select>
+//                         </FormControl>
+//                     </Box>
+
+//                     {/* Instructions */}
+//                     <StyledTextField
+//                         label="Special Instructions"
+//                         name="specialInstructions"
+//                         value={formData.specialInstructions}
+//                         onChange={handleChange}
+//                         multiline
+//                         rows={3}
+//                     />
+//                     <div className="flex justify-end">
+//                         <Button
+//                             type="submit"
+//                             variant="contained"
+//                             sx={{
+//                                 backgroundColor: "var(--color-btn)",
+//                                 color: "var(--color-text-light)",
+//                                 fontWeight: 600,
+//                                 borderRadius: "10px",
+//                                 px: 3,
+//                                 "&:hover": {
+//                                     backgroundColor: "var(--color-btn-dark)",
+//                                 },
+//                             }}
+//                         >
+//                             Add Therapy
+//                         </Button>
+//                     </div>
+//                 </DialogContent>
+
+
+//             </form>
+//         </Dialog>
+//     );
+// }
+
+// /* =======================
+//    REUSABLE TEXTFIELD STYLE
+// ======================= */
+// const StyledTextField = (props) => (
+//     <TextField
+//         fullWidth
+//         required
+//         sx={{
+//             mb: 2,
+//             "& .MuiInputLabel-root": {
+//                 color: "var(--color-text)",
+//             },
+//             "& .MuiInputLabel-root.Mui-focused": {
+//                 color: "var(--color-text-dark-b)",
+//             },
+//             "& .MuiOutlinedInput-root": {
+//                 backgroundColor: "var(--color-bg-input)",
+//                 borderRadius: "10px",
+//                 "& fieldset": {
+//                     borderColor: "var(--color-border)",
+//                 },
+//                 "&:hover fieldset": {
+//                     borderColor: "var(--color-text-b)",
+//                 },
+//                 "&.Mui-focused fieldset": {
+//                     borderColor: "var(--color-text-dark-b)",
+//                     borderWidth: 2,
+//                 },
+//             },
+//         }}
+//         {...props}
+//     />
+// );
+
+// export default AddTherapyPlan;
+
+
+import React, { useState } from "react";
 import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
     TextField,
     Select,
     MenuItem,
@@ -12,101 +226,232 @@ import {
     Button,
     Box,
     Typography,
-} from '@mui/material';
+    IconButton,
+    Grid,
+    Divider,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 function AddTherapyPlan({ open, onClose, patientName, onAdd }) {
     const [formData, setFormData] = useState({
-        treatmentName: '',
-        daysOfTreatment: '',
-        treatmentTimeline: '',
-        specialInstructions: '',
+        treatmentName: "",
+        daysOfTreatment: "",
+        treatmentTimeline: "",
+        specialInstructions: "",
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (onAdd) {
-            onAdd(formData);
-        }
+        onAdd?.(formData);
         onClose();
     };
 
-    const timelines = ['Morning', 'Afternoon', 'Evening', 'Full Day']; // Sample options for timeline select
+    const timelines = ["Morning", "Afternoon", "Evening", "Full Day"];
 
     return (
-        <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-            <DialogTitle>Add Therapy Plan</DialogTitle>
+        <Dialog
+            open={open}
+            onClose={onClose}
+            maxWidth="sm"
+            fullWidth
+            PaperProps={{
+                sx: {
+                    borderRadius: "18px",
+                    overflow: "hidden",
+                },
+            }}
+        >
+            {/* ================= HEADER ================= */}
+            <DialogTitle
+                sx={{
+                    backgroundColor: "var(--color-bg-header)",
+                    color: "var(--color-text-light)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    px: 3,
+                    py: 2,
+                }}
+            >
+                <Box>
+                    <Typography fontWeight={700} fontSize="1.2rem">
+                        Add Therapy Plan
+                    </Typography>
+                    <Typography variant="caption" sx={{ opacity: 0.85 }}>
+                        Patient: {patientName}
+                    </Typography>
+                </Box>
+
+                <IconButton
+                    onClick={onClose}
+                    sx={{
+                        color: "var(--color-text-light)",
+                        "&:hover": {
+                            backgroundColor: "var(--color-bg-side-bar-hover)",
+                        },
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+
             <form onSubmit={handleSubmit}>
-                <DialogContent>
-                    <Box sx={{ mt: 1 }}>
-                        <Typography variant="body2" color="success.main" gutterBottom>
-                            Adding therapy for {patientName}
-                        </Typography>
-                        <TextField
-                            fullWidth
-                            label="Treatment Name *"
+                {/* ================= CONTENT ================= */}
+                <DialogContent
+                    sx={{
+                        backgroundColor: "var(--color-bg-a)",
+                        px: 3,
+                        py: 3,
+                    }}
+                >
+                    {/* ================= Treatment Name ================= */}
+                    <Field label="Treatment Name">
+                        <StyledTextField
                             name="treatmentName"
                             value={formData.treatmentName}
                             onChange={handleChange}
-                            placeholder="Start typing treatment name..."
-                            required
-                            sx={{ mb: 2 }}
+                            placeholder="Enter treatment name..."
                         />
-                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                            <TextField
-                                label="Days of Treatment *"
-                                name="daysOfTreatment"
-                                type="number"
-                                value={formData.daysOfTreatment}
-                                onChange={handleChange}
-                                required
-                                sx={{ flex: 1 }}
-                            />
-                            <FormControl fullWidth required sx={{ flex: 1 }}>
-                                <InputLabel>Treatment Timeline *</InputLabel>
-                                <Select
-                                    name="treatmentTimeline"
-                                    value={formData.treatmentTimeline}
+                    </Field>
+
+                    {/* ================= Days & Timeline ================= */}
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={6}>
+                            <Field label="Days of Treatment">
+                                <StyledTextField
+                                    name="daysOfTreatment"
+                                    type="number"
+                                    value={formData.daysOfTreatment}
                                     onChange={handleChange}
-                                    label="Treatment Timeline *"
-                                >
-                                    <MenuItem value="">Select Treatment Timeline...</MenuItem>
-                                    {timelines.map((timeline) => (
-                                        <MenuItem key={timeline} value={timeline}>
-                                            {timeline}
+                                    placeholder="Enter number of days"
+                                />
+                            </Field>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <Field label="Treatment Timeline">
+                                <FormControl fullWidth>
+                                    <Select
+                                        name="treatmentTimeline"
+                                        value={formData.treatmentTimeline}
+                                        onChange={handleChange}
+                                        displayEmpty
+                                        sx={{
+                                            backgroundColor: "var(--color-bg-input)",
+                                            borderRadius: "10px",
+                                            height: "44px",
+                                            "& .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "var(--color-border)",
+                                            },
+                                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "var(--color-text-b)",
+                                            },
+                                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "var(--color-text-dark-b)",
+                                                borderWidth: 2,
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value="">
+                                            <Typography sx={{ color: "var(--color-text)" }}>
+                                                Select timeline
+                                            </Typography>
                                         </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <TextField
-                            fullWidth
-                            label="Special Instructions *"
+                                        {timelines.map((t) => (
+                                            <MenuItem key={t} value={t}>
+                                                {t}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Field>
+                        </Grid>
+                    </Grid>
+
+                    {/* ================= Instructions ================= */}
+                    <Field label="Special Instructions">
+                        <StyledTextField
                             name="specialInstructions"
                             value={formData.specialInstructions}
                             onChange={handleChange}
                             multiline
                             rows={3}
-                            required
-                            sx={{ mb: 2 }}
+                            placeholder="Enter any special instructions..."
                         />
+                    </Field>
+
+                    <Divider sx={{ my: 2, borderColor: "var(--color-border)" }} />
+
+                    {/* ================= ACTION ================= */}
+                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{
+                                backgroundColor: "var(--color-btn)",
+                                color: "var(--color-text-light)",
+                                fontWeight: 700,
+                                borderRadius: "10px",
+                                px: 4,
+                                py: 1.2,
+                                "&:hover": {
+                                    backgroundColor: "var(--color-btn-dark)",
+                                },
+                            }}
+                        >
+                            Add Therapy
+                        </Button>
                     </Box>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose} variant="outlined">
-                        Cancel
-                    </Button>
-                    <Button type="submit" variant="contained" color="success">
-                        Add
-                    </Button>
-                </DialogActions>
             </form>
         </Dialog>
     );
 }
+
+/* ======================= HELPER COMPONENTS ======================= */
+
+const Field = ({ label, children }) => (
+    <Box sx={{ mb: 2.5 }}>
+        <Typography
+            sx={{
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                color: "var(--color-text-dark)",
+                mb: 0.5,
+            }}
+        >
+            {label}
+        </Typography>
+        {children}
+    </Box>
+);
+
+const StyledTextField = (props) => (
+    <TextField
+        fullWidth
+        sx={{
+            "& .MuiOutlinedInput-root": {
+                backgroundColor: "var(--color-bg-input)",
+                borderRadius: "10px",
+                "& fieldset": {
+                    borderColor: "var(--color-border)",
+                },
+                "&:hover fieldset": {
+                    borderColor: "var(--color-text-b)",
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: "var(--color-text-dark-b)",
+                    borderWidth: 2,
+                },
+            },
+        }}
+        {...props}
+    />
+);
 
 export default AddTherapyPlan;
