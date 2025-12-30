@@ -96,7 +96,7 @@ function AssignTherapy_View() {
         {
             icon: <PersonIcon fontSize="small" />,
             color: "var(--color-primary)",
-            label: "View Details",
+            label: "Patient Calendar",
             onClick: (row) => {
                 navigate(`/doctor/examination/${row.patientId}`);
             },

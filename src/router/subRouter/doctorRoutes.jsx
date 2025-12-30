@@ -12,6 +12,9 @@ const Doctor_Profile = lazy(() =>
 const PatientExamination = lazy(() =>
     import("../../pages/doctor/Patients/PatientExamination")
 );
+const PatientFollowUpsCalendar = lazy(() =>
+    import("../../pages/doctor/FollowUps/PatientFollowUpsCalendar")
+);
 
 const All_Patients_View = lazy(() =>
     import("../../pages/doctor/Patients/View")
@@ -131,7 +134,22 @@ export const doctorRoutes = [
         element: (
             <>
                 <Helmet>
-                    <title>Patient Examination | UTPALA</title>
+                    <title>Patient Follow-up Calendar | UTPALA</title>
+                    <meta
+                        name="description"
+                        content="View and manage follow-up appointments for the selected patient."
+                    />
+                </Helmet>
+                <PatientFollowUpsCalendar />
+            </>
+        ),
+    },
+    {
+        path: "/doctor/add-examination/:userId",
+        element: (
+            <>
+                <Helmet>
+                    <title>Add Examination Record | UTPALA</title>
                     <meta
                         name="description"
                         content="View and manage examination records for the selected patient."

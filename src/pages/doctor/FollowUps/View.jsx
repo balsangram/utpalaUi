@@ -19,27 +19,27 @@ const mockFollowUps = [
         _id: "1",
         patientName: "Amit Kumar",
         patientId: "PAT-001",
-        followUpDate: "2025-01-22",
+        followUpDate: "2026-01-05", // Forward date
         followUpTime: "10:00 AM",
         reason: "Review medication effectiveness",
         status: "Upcoming",
-        daysUntil: 2,
+        daysUntil: 6,
     },
     {
         _id: "2",
         patientName: "Sita Verma",
         patientId: "PAT-002",
-        followUpDate: "2025-01-21",
+        followUpDate: "2026-01-02", // Forward date
         followUpTime: "11:00 AM",
         reason: "Post-treatment checkup",
         status: "Upcoming",
-        daysUntil: 1,
+        daysUntil: 3,
     },
     {
         _id: "3",
         patientName: "Rajesh Singh",
         patientId: "PAT-003",
-        followUpDate: "2025-01-20",
+        followUpDate: "2025-12-30", // Today!
         followUpTime: "09:00 AM",
         reason: "Blood test results review",
         status: "Today",
@@ -49,11 +49,11 @@ const mockFollowUps = [
         _id: "4",
         patientName: "Priya Sharma",
         patientId: "PAT-004",
-        followUpDate: "2025-01-19",
+        followUpDate: "2025-12-28", // Past date
         followUpTime: "02:00 PM",
         reason: "Routine checkup",
         status: "Overdue",
-        daysUntil: -1,
+        daysUntil: -2,
     },
 ];
 
@@ -101,7 +101,7 @@ function FollowUps_View() {
         {
             icon: <PersonIcon fontSize="small" />,
             color: "var(--color-primary)",
-            label: "View Patient",
+            label: "Patient Calendar",
             onClick: (row) => {
                 navigate(`/doctor/examination/${row.patientId}`);
             },

@@ -484,7 +484,8 @@ table.table td h2 span {
 
 .bg-primary,
 .badge-primary {
-  background-color: var(--color-text-light) !important;
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-white) !important;
 }
 
 .bg-success,
@@ -494,7 +495,8 @@ table.table td h2 span {
 
 .bg-info,
 .badge-info {
-  background-color: var(--color-text-light) !important;
+  background-color: var(--color-info) !important;
+  color: var(--color-text-white) !important;
 }
 
 .bg-warning,

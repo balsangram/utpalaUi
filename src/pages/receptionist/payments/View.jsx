@@ -368,7 +368,6 @@ function Payments_View() {
                                             <th style={{ fontSize: "0.875rem" }}>Date</th>
                                             <th style={{ fontSize: "0.875rem" }}>Description / Reason</th>
                                             <th style={{ fontSize: "0.875rem" }}>Payment Method</th>
-                                            <th style={{ fontSize: "0.875rem" }}>Type</th>
                                             <th style={{ fontSize: "0.875rem", textAlign: "right" }}>Amount (INR)</th>
                                             <th style={{ fontSize: "0.875rem", textAlign: "center" }}>Actions</th>
                                         </tr>
@@ -390,14 +389,6 @@ function Payments_View() {
                                                         {getPaymentMethodIcon(transaction.paymentMethod)}
                                                         <span style={{ fontWeight: 500 }}>
                                                             {transaction.paymentMethod}
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td style={{ fontSize: "0.875rem" }}>
-                                                    <div className="d-flex align-items-center" style={{ color: getTypeColor(transaction.type) }}>
-                                                        {getTypeIcon(transaction.type)}
-                                                        <span style={{ fontWeight: 500 }}>
-                                                            {transaction.type}
                                                         </span>
                                                     </div>
                                                 </td>

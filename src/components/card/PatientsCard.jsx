@@ -303,7 +303,7 @@ function PatientsCard({
                             },
                         }}
                     >
-                        View Examination
+                        Patient Calendar
                     </Button>
                 </Box>
             </Box>

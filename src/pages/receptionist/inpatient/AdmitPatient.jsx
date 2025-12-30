@@ -117,8 +117,8 @@ function AdmitPatientPage() {
                             </Box>
                         )}
 
-                        <TextField
-                            label="Selected Patient"
+                        {/* <TextField
+                            label="Selected Patienttttttttttttt"
                             fullWidth
                             value={
                                 selectedPatientForAdmission
@@ -128,7 +128,7 @@ function AdmitPatientPage() {
                             placeholder="Select a patient from search results"
                             InputProps={{ readOnly: true }}
                             sx={{ mb: 2 }}
-                        />
+                        /> */}
 
                         <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
                             <FormControl fullWidth required>
